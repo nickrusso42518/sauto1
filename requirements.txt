@@ -1,3 +1,6 @@
 ansible==2.8.7
 netmiko
 requests
+pylint
+black
+yamllint
