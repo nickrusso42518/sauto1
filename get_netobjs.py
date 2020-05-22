@@ -7,7 +7,7 @@ Check out the API explorer at "https://<ftd_host>/#/api-explorer"
 """
 
 import requests
-from auth_token import get_token
+from cisco_ftd import CiscoFTD
 
 
 def main():
@@ -15,23 +15,8 @@ def main():
     Execution begins here.
     """
 
-    # The FTD sandbox uses a self-signed cert at present, so let's ignore any
-    # obvious security warnings for now.
-    requests.packages.urllib3.disable_warnings()
-
-    # The API path below is what the DevNet sandbox uses for API testing,
-    # which may change in the future. Be sure to check the IP address as
-    # I suspect this changes frequently. See here for more details:
-    # https://developer.cisco.com/firepower/
-    api_path = "https://10.10.20.65/api/fdm/latest"
-    token = get_token(api_path)
-
-    # To authenticate, we issue a POST request with our username/password
-    # as a JSON body to obtain a bearer token in response.
-    get_headers = {
-        "Accept": "application/json",
-        "Authorization": f"Bearer {token}",
-    }
+    # Create a new FTD object referencing the DevNet sandbox (default)
+    ftd = CiscoFTD()
 
     # List of resources to query; basically, network and port/protocol objects
     # The second item in the tuple is the "value of interest" which varies
@@ -49,9 +34,7 @@ def main():
 
         # Issue a GET request to collect a list of network objects configured
         # on the FTD device. Raise HTTPErrors if the request fails
-        get_resp = requests.get(
-            f"{api_path}/{resource}", headers=get_headers, verify=False
-        )
+        get_resp = ftd.req(resource)
         get_resp.raise_for_status()
 
         # Iterate over each item in the "items" list returned by the API
