@@ -1,6 +1,0 @@
-{
-    "description": "All IPsec related ports and protocols",
-    "name": "PORTG_IPSEC",
-    "objects": [],
-    "type": "portobjectgroup"
-}

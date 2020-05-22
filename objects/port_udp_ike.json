@@ -1,6 +1,0 @@
-{
-    "name": "UDP_IKE",
-    "description": "Internet Key Exchange for IPsec VPNs",
-    "port": "500",
-    "type": "udpportobject"
-}

@@ -6,8 +6,18 @@ Purpose: Python client SDK for Cisco FTD.
 Check out the API explorer at "https://<ftd_host>/#/api-explorer"
 """
 
+import json
 import requests
 
+# Maps the type of an object to the API resource string
+URL_MAP = {
+    "networkobject": "object/networks",
+    "networkobjectgroup": "object/networkgroups",
+    "tcpportobject": "object/tcpports",
+    "udpportobject": "object/udpports",
+    "protocolobject": "object/protocols",
+    "portobjectgroup": "object/portgroups",
+}
 
 class CiscoFTD:
     """
@@ -115,20 +125,44 @@ class CiscoFTD:
 
         return {}
 
-    #
-    # Policy discovery
-    #
-    def get_security_zones(self, object_ids=None):
-        resource = "object/securityzones"
-        if not object_ids:
-            return self.req(resource)
+                
+    def add_object(self, resource, obj_body):
 
-        items = []
-        for object_id in object_ids:
-            resp_data = self.req(f"{resource}/{object_id}")
-            items.append(resp_data)
+        # Issue a POST request and print a status message
+        resp = self.req(resource, method="post", json=obj_body)
+        print(f"Added {resp['type']} named {resp['name']} with ID {resp['id']}")
+        return resp
 
-        return items
+        #important_keys = ["name", "version", "id", "type"]
+        #created_object = {key: resp[key] for key in important_keys}
+        #return created_object
+        
+
+    def deploy_group(self, group_dict):
+
+        # Cannot create empty groups, so build objects individually first
+        created_objects = []
+        for obj_body in group_dict["objects"]:
+            obj_url = URL_MAP[obj_body["type"]]
+            obj_resp = self.add_object(obj_url, obj_body)
+
+            # Add the response to a list to replace the group "objects"
+            created_objects.append(obj_resp)
+
+        # All objects built; update the group's "objects" key
+        group_dict["objects"] = created_objects
+        group_url = URL_MAP[group_dict["type"]]
+        group_resp = self.add_object(group_url, group_dict)
+
+        # Return the group response which will contain all UUIDs
+        return group_resp
+
+
+    def deploy_group_file(self, filename):
+        with open(filename, "r") as handle:
+            group_dict = json.load(handle)
+        return self.deploy_group(group_dict)
+
 
 
 def main():

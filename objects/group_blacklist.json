@@ -1,6 +1,0 @@
-{
-    "name": "NETG_BLACKLIST",
-    "description": "in-to-out blacklist",
-    "objects": [],
-    "type": "networkobjectgroup"
-}

@@ -1,7 +1,0 @@
-{
-    "name": "NET_VPN_EAST",
-    "description": "VPN concentrator in Baltimore",
-    "subType": "HOST",
-    "value": "192.168.5.10",
-    "type": "networkobject"
-}
