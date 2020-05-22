@@ -1,0 +1,6 @@
+{
+    "name": "NETG_VPN_CONCENTRATORS",
+    "description": "All VPN concentrators",
+    "objects": [],
+    "type": "networkobjectgroup"
+}

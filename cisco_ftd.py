@@ -100,13 +100,35 @@ class CiscoFTD:
         arguments supported by 'requests.request' are supported here,
         such as data, json, files, params, etc.
         """
-        return self.sess.request(
+        resp = self.sess.request(
             url=f"{self.api_path}/{resource}",
             method=method,
             headers=self.headers,
             verify=self.verify,
             **kwargs,
         )
+        resp.raise_for_status()
+
+        # If body exists, turn to JSON and return; Else, return empty dict
+        if resp.text:
+            return resp.json()
+
+        return {}
+
+    #
+    # Policy discovery
+    #
+    def get_security_zones(self, object_ids=None):
+        resource = "object/securityzones"
+        if not object_ids:
+            return self.req(resource)
+
+        items = []
+        for object_id in object_ids:
+            resp_data = self.req(f"{resource}/{object_id}")
+            items.append(resp_data)
+
+        return items
 
 
 def main():

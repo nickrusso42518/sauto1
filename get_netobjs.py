@@ -35,10 +35,9 @@ def main():
         # Issue a GET request to collect a list of network objects configured
         # on the FTD device. Raise HTTPErrors if the request fails
         get_resp = ftd.req(resource)
-        get_resp.raise_for_status()
 
         # Iterate over each item in the "items" list returned by the API
-        for item in get_resp.json()["items"]:
+        for item in get_resp["items"]:
 
             # Print the name, type, and "value of interest" for
             # each item in the list if the key is defined/truthy

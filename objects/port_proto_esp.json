@@ -1,0 +1,6 @@
+{
+    "name": "PROTO_ESP",
+    "description": "Encapsulating Security Payload for IPsec VPNs",
+    "protocol": "ESP",
+    "type": "protocolobject"
+}

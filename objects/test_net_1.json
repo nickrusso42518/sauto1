@@ -1,0 +1,7 @@
+{
+    "name": "NET_TEST_1",
+    "description": "See RFC-5737 section 3",
+    "subType": "NETWORK",
+    "value": "192.0.2.0/24",
+    "type": "networkobject"
+}
