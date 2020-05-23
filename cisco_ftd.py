@@ -136,27 +136,35 @@ class CiscoFTD:
     ):
 
         # Create the body based on positional and keyword arguments
-        body = {
+        rule = {
             "name": rule_name,
             "ruleAction": rule_action,
             "rulePosition": rule_position,
             "type": "accessrule",
         }
-        body.update(kwargs)
+        rule.update(kwargs)
 
         # Optional debugging to view the completed VPN access rule
-        # import json; print(json.dumps(body, indent=2))
+        # print(json.dumps(rule, indent=2))
 
-        # policy/accesspolicies/c78e66bc-cb57-43fe-bcbf-96b79b3475b3/accessrules
         resp = self.req(
             f"policy/accesspolicies/{policy_id}/accessrules",
             method="post",
-            json=body,
+            json=rule,
         )
         return resp
 
-    def update_with_ips(self, rule_name, ips_name):
-        return None
+    def update_access_rule(self, policy_id, rule_id, **kwargs):
+        url = f"policy/accesspolicies/{policy_id}/accessrules/{rule_id}"
+        rule = self.req(url)
+
+        rule.update(kwargs)
+
+        # Optional debugging to view the completed VPN access rule
+        # print(json.dumps(rule, indent=2))
+
+        resp = self.req(url, method="put", json=rule)
+        return resp
 
     def add_object(self, resource, obj_body):
 
@@ -219,14 +227,69 @@ class CiscoFTD:
                 f"Deleted {obj['type']} named {obj['name']} with ID {obj['id']}"
             )
 
+    def get_access_rules(self, policy_id, name=None):
+        if name:
+            params = {"filter": f"fts:{name}"}
+        else:
+            params = None
+        resp = self.req(
+            f"policy/accesspolicies/{policy_id}/accessrules", params=params
+        )
+        return resp
+
+    def delete_access_rule_name(self, policy_id, name):
+        resp = self.get_access_rules(policy_id, name)
+
+        # Presumably, only one item will be returned (can add more checks)
+        if len(resp["items"]) == 1:
+            rule_id = resp["items"][0]["id"]
+            print(f"Found accessrule named {name} with ID {rule_id}")
+            return self.delete_access_rule_id(policy_id, rule_id)
+
+        return None
+
+    def delete_access_rule_id(self, policy_id, rule_id):
+        resp = self.req(
+            f"policy/accesspolicies/{policy_id}/accessrules/{rule_id}",
+            method="delete",
+        )
+        print(f"Deleted accessrule with ID {rule_id}")
+        return resp
+
     def get_security_zones(self, name=None):
         if name:
             params = {"filter": f"name:{name}"}
         else:
             params = None
 
-        zones = self.req("object/securityzones", params=params)
-        return zones
+        resp = self.req("object/securityzones", params=params)
+        return resp
+
+    def get_ips_policy(self, name=None):
+        if name:
+            params = {"filter": f"name:{name}"}
+        else:
+            params = None
+
+        resp = self.req("policy/intrusionpolicies", params=params)
+        return resp
+
+    def activate_threat_license(self):
+        lics = self.req("license/smartlicenses")
+        for lic in lics["items"]:
+            if lic["licenseType"].lower() == "threat":
+                return lic
+
+        # Threat license not activated, activate it now
+        body = {
+            "compliant": True,
+            "count": 1,
+            "licenseType": "THREAT",
+            "type": "license",
+        }
+
+        resp = self.req("license/smartlicenses", method="post", json=body)
+        return resp
 
 
 def main():
