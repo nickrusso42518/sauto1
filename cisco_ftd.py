@@ -9,6 +9,7 @@ Check out the API explorer at "https://<ftd_host>/#/api-explorer"
 import json
 import requests
 
+
 # Maps the type of an object to the API resource string
 URL_MAP = {
     "networkobject": "object/networks",
@@ -19,6 +20,7 @@ URL_MAP = {
     "portobjectgroup": "object/portgroups",
 }
 
+
 class CiscoFTD:
     """
     Python client SDK for Cisco FTD.
@@ -27,13 +29,12 @@ class CiscoFTD:
     def __init__(
         self,
         host="10.10.20.65",
-        port=443,
         username="admin",
         password="Cisco1234",
         verify=False,
     ):
         """
-        Constructor for the class. Takes in optional host, port, username,
+        Constructor for the class. Takes in optional hostname/IP, username,
         password, and optional SSL verification setting. If left blank,
         the reservable DevNet sandbox will be used by default.
         """
@@ -42,7 +43,7 @@ class CiscoFTD:
         self.username = username
         self.password = password
         self.verify = verify
-        self.api_path = f"https://{host}:{port}/api/fdm/latest"
+        self.api_path = f"https://{host}/api/fdm/latest"
 
         # If we aren't verifying SSL certificates, disable obnoxious warnings
         if not self.verify:
@@ -110,6 +111,7 @@ class CiscoFTD:
         arguments supported by 'requests.request' are supported here,
         such as data, json, files, params, etc.
         """
+
         resp = self.sess.request(
             url=f"{self.api_path}/{resource}",
             method=method,
@@ -125,7 +127,6 @@ class CiscoFTD:
 
         return {}
 
-                
     def add_object(self, resource, obj_body):
 
         # Issue a POST request and print a status message
@@ -133,10 +134,9 @@ class CiscoFTD:
         print(f"Added {resp['type']} named {resp['name']} with ID {resp['id']}")
         return resp
 
-        #important_keys = ["name", "version", "id", "type"]
-        #created_object = {key: resp[key] for key in important_keys}
-        #return created_object
-        
+        # important_keys = ["name", "version", "id", "type"]
+        # created_object = {key: resp[key] for key in important_keys}
+        # return created_object
 
     def deploy_group(self, group_dict):
 
@@ -157,12 +157,36 @@ class CiscoFTD:
         # Return the group response which will contain all UUIDs
         return group_resp
 
-
     def deploy_group_file(self, filename):
         with open(filename, "r") as handle:
             group_dict = json.load(handle)
         return self.deploy_group(group_dict)
 
+    def purge_group_name(self, name, group_type):
+        group_url = URL_MAP[group_type]
+        group = self.req(group_url, params={"filter": f"name:{name}"})
+
+        # Presumably, only one item will be returned (can add more checks)
+        if len(group["items"]) == 1:
+            group_id = group["items"][0]["id"]
+            print(f"Found {group_type} named {name} with ID {group_id}")
+            return self.purge_group_id(group_id, group_type)
+
+        return None
+
+    def purge_group_id(self, group_id, group_type):
+        group_url = URL_MAP[group_type]
+        group = self.req(f"{group_url}/{group_id}")
+
+        self.req(f"{group_url}/{group_id}", method="delete")
+        print(f"Deleted {group_type} named {group['name']} with ID {group_id}")
+
+        for obj in group["objects"]:
+            obj_url = URL_MAP[obj["type"]]
+            self.req(f"{obj_url}/{obj['id']}", method="delete")
+            print(
+                f"Deleted {obj['type']} named {obj['name']} with ID {obj['id']}"
+            )
 
 
 def main():

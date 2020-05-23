@@ -69,6 +69,7 @@ def print_networks(ftd, rule):
                 detail = ftd.req(f"resource/{obj['id']}")
                 print(f"        Network: {detail['name']} / {detail['value']}")
 
+
 def print_ports_protocols(ftd, rule):
     for port_type in ["sourcePorts", "destinationPorts"]:
 
@@ -91,6 +92,7 @@ def print_ports_protocols(ftd, rule):
 
                 detail = ftd.req(f"resource/{obj['id']}")
                 print(f"        Port/Proto: {detail['name']} / {detail[key]}")
+
 
 if __name__ == "__main__":
     main()

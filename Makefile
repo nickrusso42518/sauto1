@@ -17,7 +17,7 @@ lint:
 .PHONY: black
 black:
 	@echo "Starting  black"
-	find . -name "*.py" | xargs black -l 80 --check
+	find . -name "*.py" | xargs black -l 80
 	@echo "Completed black"
 
 .PHONY: clean
