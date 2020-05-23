@@ -127,6 +127,34 @@ class CiscoFTD:
 
         return {}
 
+    def get_access_policy(self):
+        policies = self.req("policy/accesspolicies")
+        return policies["items"][0]
+
+    def add_access_rule(self, policy_id, rule_name, rule_action, rule_position, **kwargs):
+
+        # Create the body based on positional and keyword arguments
+        body = {
+            "name": rule_name,
+            "ruleAction": rule_action,
+            "rulePosition": rule_position,
+            "type": "accessrule",
+        }
+        body.update(kwargs)
+
+        # Optional debugging to view the completed VPN access rule
+        import json; print(json.dumps(body, indent=2))
+        import pdb; pdb.set_trace()
+
+        # policy/accesspolicies/c78e66bc-cb57-43fe-bcbf-96b79b3475b3/accessrules
+        resp = self.req(f"policy/accesspolicies/{policy_id}/accessrules", method="post", json=body)
+        return resp
+
+
+
+    def update_with_ips(self, rule_name, ips_name):
+        return None
+
     def add_object(self, resource, obj_body):
 
         # Issue a POST request and print a status message
@@ -187,6 +215,16 @@ class CiscoFTD:
             print(
                 f"Deleted {obj['type']} named {obj['name']} with ID {obj['id']}"
             )
+
+    def get_security_zones(self, name=None):
+        if name:
+            params = {"filter": f"name:{name}"}
+        else:
+            params = None
+
+        zones = self.req("object/securityzones", params=params)
+        return zones
+
 
 
 def main():
