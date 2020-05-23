@@ -131,7 +131,9 @@ class CiscoFTD:
         policies = self.req("policy/accesspolicies")
         return policies["items"][0]
 
-    def add_access_rule(self, policy_id, rule_name, rule_action, rule_position, **kwargs):
+    def add_access_rule(
+        self, policy_id, rule_name, rule_action, rule_position, **kwargs
+    ):
 
         # Create the body based on positional and keyword arguments
         body = {
@@ -143,14 +145,15 @@ class CiscoFTD:
         body.update(kwargs)
 
         # Optional debugging to view the completed VPN access rule
-        import json; print(json.dumps(body, indent=2))
-        import pdb; pdb.set_trace()
+        # import json; print(json.dumps(body, indent=2))
 
         # policy/accesspolicies/c78e66bc-cb57-43fe-bcbf-96b79b3475b3/accessrules
-        resp = self.req(f"policy/accesspolicies/{policy_id}/accessrules", method="post", json=body)
+        resp = self.req(
+            f"policy/accesspolicies/{policy_id}/accessrules",
+            method="post",
+            json=body,
+        )
         return resp
-
-
 
     def update_with_ips(self, rule_name, ips_name):
         return None
@@ -224,7 +227,6 @@ class CiscoFTD:
 
         zones = self.req("object/securityzones", params=params)
         return zones
-
 
 
 def main():
