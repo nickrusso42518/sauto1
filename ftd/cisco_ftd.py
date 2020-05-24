@@ -274,6 +274,7 @@ class CiscoFTD:
             method="post",
             json=rule,
         )
+        print(f"Added accessrule named {rule_name} with ID {resp['id']}")
         return resp
 
     def update_access_rule(self, rule_id, **kwargs):
