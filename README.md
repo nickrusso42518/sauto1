@@ -18,3 +18,9 @@ FTD get/add/delete scripts
 ## Module 5 - FMC (multiple FTD)
 FMC capabilities
 FMC get/add/delete scripts
+
+### alternative design
+m2 - ASA netmiko/ansible
+m3 - ftd intro/object mgmt
+m4 - ftd policy mgmt/deploy/delete
+m5 - fmc everything
