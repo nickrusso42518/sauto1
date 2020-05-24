@@ -1,0 +1,2713 @@
+{
+  "items": [
+    {
+      "version": "gyoqmf5n3vpuj",
+      "name": "NGFW-Access-Policy",
+      "defaultAction": {
+        "action": "DENY",
+        "eventLogAction": "LOG_NONE",
+        "intrusionPolicy": null,
+        "syslogServer": null,
+        "hitCount": {
+          "hitCount": 0,
+          "firstHitTimeStamp": "",
+          "lastHitTimeStamp": "",
+          "lastFetchTimeStamp": "",
+          "type": "hitcount"
+        },
+        "type": "accessdefaultaction"
+      },
+      "sslPolicy": null,
+      "id": "c78e66bc-cb57-43fe-bcbf-96b79b3475b3",
+      "identityPolicySetting": null,
+      "securityIntelligence": null,
+      "type": "accesspolicy",
+      "links": {
+        "self": "https://10.10.20.65/api/fdm/latest/policy/accesspolicies/c78e66bc-cb57-43fe-bcbf-96b79b3475b3"
+      }
+    }
+  ],
+  "paging": {
+    "prev": [],
+    "next": [],
+    "limit": 10,
+    "offset": 0,
+    "count": 1,
+    "pages": 0
+  }
+}
+{
+  "items": [
+    {
+      "version": "kgo2hhtuvvlyh",
+      "name": "IN_TO_OUT_BLACKLIST",
+      "ruleId": 268435469,
+      "sourceZones": [
+        {
+          "version": "f2pirv6ffutzh",
+          "name": "inside_zone",
+          "id": "90c377e0-b3e5-11e5-8db8-651556da7898",
+          "type": "securityzone"
+        }
+      ],
+      "destinationZones": [
+        {
+          "version": "nb3xioyndbyfp",
+          "name": "outside_zone",
+          "id": "b1af33e1-b3e5-11e5-8db8-afdc0be5453e",
+          "type": "securityzone"
+        }
+      ],
+      "sourceNetworks": [],
+      "destinationNetworks": [
+        {
+          "version": "kvrgojh7vojx4",
+          "name": "NETG_BLACKLIST",
+          "id": "04e06864-9dad-11ea-9df4-69d195878810",
+          "type": "networkobjectgroup"
+        }
+      ],
+      "sourcePorts": [],
+      "destinationPorts": [],
+      "rulePosition": 2,
+      "ruleAction": "DENY",
+      "eventLogAction": "LOG_BOTH",
+      "identitySources": [],
+      "users": [],
+      "embeddedAppFilter": null,
+      "urlFilter": null,
+      "intrusionPolicy": null,
+      "filePolicy": null,
+      "logFiles": false,
+      "syslogServer": null,
+      "destinationDynamicObjects": [],
+      "sourceDynamicObjects": [],
+      "id": "054ce5da-9dad-11ea-9df4-450495cce17f",
+      "type": "accessrule",
+      "links": {
+        "self": "https://10.10.20.65/api/fdm/latest/policy/accesspolicies/c78e66bc-cb57-43fe-bcbf-96b79b3475b3/accessrules/054ce5da-9dad-11ea-9df4-450495cce17f"
+      }
+    }
+  ],
+  "paging": {
+    "prev": [],
+    "next": [],
+    "limit": 10,
+    "offset": 0,
+    "count": 1,
+    "pages": 0
+  }
+}
+Found accessrule named IN_TO_OUT_BLACKLIST with ID 054ce5da-9dad-11ea-9df4-450495cce17f
+Deleted accessrule with ID 054ce5da-9dad-11ea-9df4-450495cce17f
+{
+  "items": [
+    {
+      "version": "gmlj5boltsvlx",
+      "name": "OUT_TO_IN_VPN",
+      "ruleId": 268435468,
+      "sourceZones": [
+        {
+          "version": "nb3xioyndbyfp",
+          "name": "outside_zone",
+          "id": "b1af33e1-b3e5-11e5-8db8-afdc0be5453e",
+          "type": "securityzone"
+        }
+      ],
+      "destinationZones": [
+        {
+          "version": "f2pirv6ffutzh",
+          "name": "inside_zone",
+          "id": "90c377e0-b3e5-11e5-8db8-651556da7898",
+          "type": "securityzone"
+        }
+      ],
+      "sourceNetworks": [],
+      "destinationNetworks": [
+        {
+          "version": "dn5o2nncc56cl",
+          "name": "NETG_VPN_CONCENTRATORS",
+          "id": "0413544c-9dad-11ea-9df4-85743163e47c",
+          "type": "networkobjectgroup"
+        }
+      ],
+      "sourcePorts": [],
+      "destinationPorts": [
+        {
+          "version": "k7irzhfjcsdx",
+          "name": "PORTG_IPSEC",
+          "id": "048046f8-9dad-11ea-9df4-0b1c4e22a884",
+          "type": "portobjectgroup"
+        }
+      ],
+      "rulePosition": 1,
+      "ruleAction": "PERMIT",
+      "eventLogAction": "LOG_BOTH",
+      "identitySources": [],
+      "users": [],
+      "embeddedAppFilter": null,
+      "urlFilter": null,
+      "intrusionPolicy": {
+        "version": "cdongmehhy7re",
+        "name": "Balanced Security and Connectivity",
+        "id": "93a735a1-9b4c-11ea-95ce-bb199e75725f",
+        "type": "intrusionpolicy"
+      },
+      "filePolicy": null,
+      "logFiles": false,
+      "syslogServer": null,
+      "destinationDynamicObjects": [],
+      "sourceDynamicObjects": [],
+      "id": "051c5ff7-9dad-11ea-9df4-31a1d3999d9a",
+      "type": "accessrule",
+      "links": {
+        "self": "https://10.10.20.65/api/fdm/latest/policy/accesspolicies/c78e66bc-cb57-43fe-bcbf-96b79b3475b3/accessrules/051c5ff7-9dad-11ea-9df4-31a1d3999d9a"
+      }
+    }
+  ],
+  "paging": {
+    "prev": [],
+    "next": [],
+    "limit": 10,
+    "offset": 0,
+    "count": 1,
+    "pages": 0
+  }
+}
+Found accessrule named OUT_TO_IN_VPN with ID 051c5ff7-9dad-11ea-9df4-31a1d3999d9a
+Deleted accessrule with ID 051c5ff7-9dad-11ea-9df4-31a1d3999d9a
+{
+  "items": [
+    {
+      "version": "dn5o2nncc56cl",
+      "name": "NETG_VPN_CONCENTRATORS",
+      "description": "All VPN concentrators",
+      "isSystemDefined": false,
+      "id": "0413544c-9dad-11ea-9df4-85743163e47c",
+      "objects": [
+        {
+          "version": "yza4nan3rhk4",
+          "name": "NET_VPN_EAST",
+          "id": "03de1376-9dad-11ea-9df4-b521c7155dab",
+          "type": "networkobject"
+        },
+        {
+          "version": "ojaba64tkmafh",
+          "name": "NET_VPN_WEST",
+          "id": "03f6a489-9dad-11ea-9df4-21d4b970b027",
+          "type": "networkobject"
+        }
+      ],
+      "type": "networkobjectgroup",
+      "links": {
+        "self": "https://10.10.20.65/api/fdm/latest/object/networkgroups/0413544c-9dad-11ea-9df4-85743163e47c"
+      }
+    }
+  ],
+  "paging": {
+    "prev": [],
+    "next": [],
+    "limit": 10,
+    "offset": 0,
+    "count": 1,
+    "pages": 0
+  }
+}
+Found networkobjectgroup named NETG_VPN_CONCENTRATORS with ID 0413544c-9dad-11ea-9df4-85743163e47c
+{
+  "version": "dn5o2nncc56cl",
+  "name": "NETG_VPN_CONCENTRATORS",
+  "description": "All VPN concentrators",
+  "isSystemDefined": false,
+  "id": "0413544c-9dad-11ea-9df4-85743163e47c",
+  "objects": [
+    {
+      "version": "yza4nan3rhk4",
+      "name": "NET_VPN_EAST",
+      "id": "03de1376-9dad-11ea-9df4-b521c7155dab",
+      "type": "networkobject"
+    },
+    {
+      "version": "ojaba64tkmafh",
+      "name": "NET_VPN_WEST",
+      "id": "03f6a489-9dad-11ea-9df4-21d4b970b027",
+      "type": "networkobject"
+    }
+  ],
+  "type": "networkobjectgroup",
+  "links": {
+    "self": "https://10.10.20.65/api/fdm/latest/object/networkgroups/0413544c-9dad-11ea-9df4-85743163e47c"
+  }
+}
+Deleted networkobjectgroup named NETG_VPN_CONCENTRATORS with ID 0413544c-9dad-11ea-9df4-85743163e47c
+Deleted networkobject named NET_VPN_EAST with ID 03de1376-9dad-11ea-9df4-b521c7155dab
+Deleted networkobject named NET_VPN_WEST with ID 03f6a489-9dad-11ea-9df4-21d4b970b027
+{
+  "items": [
+    {
+      "version": "kvrgojh7vojx4",
+      "name": "NETG_BLACKLIST",
+      "description": "in-to-out blacklist",
+      "isSystemDefined": false,
+      "id": "04e06864-9dad-11ea-9df4-69d195878810",
+      "objects": [
+        {
+          "version": "iqlezdwbukseu",
+          "name": "NET_TEST_1",
+          "id": "0498b0fb-9dad-11ea-9df4-794e3f879da5",
+          "type": "networkobject"
+        },
+        {
+          "version": "jb2fnl6wwa7jr",
+          "name": "NET_TEST_2",
+          "id": "04b11afe-9dad-11ea-9df4-9d643b6a7cd8",
+          "type": "networkobject"
+        },
+        {
+          "version": "zh3hbyrz3y7n",
+          "name": "NET_TEST_3",
+          "id": "04c9fa31-9dad-11ea-9df4-892b233c9217",
+          "type": "networkobject"
+        }
+      ],
+      "type": "networkobjectgroup",
+      "links": {
+        "self": "https://10.10.20.65/api/fdm/latest/object/networkgroups/04e06864-9dad-11ea-9df4-69d195878810"
+      }
+    }
+  ],
+  "paging": {
+    "prev": [],
+    "next": [],
+    "limit": 10,
+    "offset": 0,
+    "count": 1,
+    "pages": 0
+  }
+}
+Found networkobjectgroup named NETG_BLACKLIST with ID 04e06864-9dad-11ea-9df4-69d195878810
+{
+  "version": "kvrgojh7vojx4",
+  "name": "NETG_BLACKLIST",
+  "description": "in-to-out blacklist",
+  "isSystemDefined": false,
+  "id": "04e06864-9dad-11ea-9df4-69d195878810",
+  "objects": [
+    {
+      "version": "iqlezdwbukseu",
+      "name": "NET_TEST_1",
+      "id": "0498b0fb-9dad-11ea-9df4-794e3f879da5",
+      "type": "networkobject"
+    },
+    {
+      "version": "jb2fnl6wwa7jr",
+      "name": "NET_TEST_2",
+      "id": "04b11afe-9dad-11ea-9df4-9d643b6a7cd8",
+      "type": "networkobject"
+    },
+    {
+      "version": "zh3hbyrz3y7n",
+      "name": "NET_TEST_3",
+      "id": "04c9fa31-9dad-11ea-9df4-892b233c9217",
+      "type": "networkobject"
+    }
+  ],
+  "type": "networkobjectgroup",
+  "links": {
+    "self": "https://10.10.20.65/api/fdm/latest/object/networkgroups/04e06864-9dad-11ea-9df4-69d195878810"
+  }
+}
+Deleted networkobjectgroup named NETG_BLACKLIST with ID 04e06864-9dad-11ea-9df4-69d195878810
+Deleted networkobject named NET_TEST_1 with ID 0498b0fb-9dad-11ea-9df4-794e3f879da5
+Deleted networkobject named NET_TEST_2 with ID 04b11afe-9dad-11ea-9df4-9d643b6a7cd8
+Deleted networkobject named NET_TEST_3 with ID 04c9fa31-9dad-11ea-9df4-892b233c9217
+{
+  "items": [
+    {
+      "version": "k7irzhfjcsdx",
+      "name": "PORTG_IPSEC",
+      "description": "All IPsec related ports and protocols",
+      "isSystemDefined": false,
+      "id": "048046f8-9dad-11ea-9df4-0b1c4e22a884",
+      "objects": [
+        {
+          "version": "hu77ohzg2wjtf",
+          "name": "PROTO_ESP",
+          "id": "0468a045-9dad-11ea-9df4-87e4228355d6",
+          "type": "protocolobject"
+        },
+        {
+          "version": "guym3ftsmvsvc",
+          "name": "UDP_IKE",
+          "id": "042e7d6f-9dad-11ea-9df4-5197dd802342",
+          "type": "udpportobject"
+        },
+        {
+          "version": "okr3za4266tfw",
+          "name": "UDP_IPSEC_NATT",
+          "id": "04493162-9dad-11ea-9df4-9fa592aa8872",
+          "type": "udpportobject"
+        }
+      ],
+      "type": "portobjectgroup",
+      "links": {
+        "self": "https://10.10.20.65/api/fdm/latest/object/portgroups/048046f8-9dad-11ea-9df4-0b1c4e22a884"
+      }
+    }
+  ],
+  "paging": {
+    "prev": [],
+    "next": [],
+    "limit": 10,
+    "offset": 0,
+    "count": 1,
+    "pages": 0
+  }
+}
+Found portobjectgroup named PORTG_IPSEC with ID 048046f8-9dad-11ea-9df4-0b1c4e22a884
+{
+  "version": "k7irzhfjcsdx",
+  "name": "PORTG_IPSEC",
+  "description": "All IPsec related ports and protocols",
+  "isSystemDefined": false,
+  "id": "048046f8-9dad-11ea-9df4-0b1c4e22a884",
+  "objects": [
+    {
+      "version": "hu77ohzg2wjtf",
+      "name": "PROTO_ESP",
+      "id": "0468a045-9dad-11ea-9df4-87e4228355d6",
+      "type": "protocolobject"
+    },
+    {
+      "version": "guym3ftsmvsvc",
+      "name": "UDP_IKE",
+      "id": "042e7d6f-9dad-11ea-9df4-5197dd802342",
+      "type": "udpportobject"
+    },
+    {
+      "version": "okr3za4266tfw",
+      "name": "UDP_IPSEC_NATT",
+      "id": "04493162-9dad-11ea-9df4-9fa592aa8872",
+      "type": "udpportobject"
+    }
+  ],
+  "type": "portobjectgroup",
+  "links": {
+    "self": "https://10.10.20.65/api/fdm/latest/object/portgroups/048046f8-9dad-11ea-9df4-0b1c4e22a884"
+  }
+}
+Deleted portobjectgroup named PORTG_IPSEC with ID 048046f8-9dad-11ea-9df4-0b1c4e22a884
+Deleted protocolobject named PROTO_ESP with ID 0468a045-9dad-11ea-9df4-87e4228355d6
+Deleted udpportobject named UDP_IKE with ID 042e7d6f-9dad-11ea-9df4-5197dd802342
+Deleted udpportobject named UDP_IPSEC_NATT with ID 04493162-9dad-11ea-9df4-9fa592aa8872
+{
+  "version": "g63jpzarkzqrb",
+  "name": "NET_VPN_EAST",
+  "description": "VPN concentrator in Baltimore",
+  "subType": "HOST",
+  "value": "192.168.5.10",
+  "isSystemDefined": false,
+  "dnsResolution": null,
+  "id": "5c10a912-9dad-11ea-9df4-d7388b030995",
+  "type": "networkobject",
+  "links": {
+    "self": "https://10.10.20.65/api/fdm/latest/object/networks/5c10a912-9dad-11ea-9df4-d7388b030995"
+  }
+}
+Added networkobject named NET_VPN_EAST with ID 5c10a912-9dad-11ea-9df4-d7388b030995
+{
+  "version": "flpt44st6vbvk",
+  "name": "NET_VPN_WEST",
+  "description": "VPN concentrator in Seattle",
+  "subType": "HOST",
+  "value": "192.168.6.10",
+  "isSystemDefined": false,
+  "dnsResolution": null,
+  "id": "5c28c4f5-9dad-11ea-9df4-6f7ee37184cb",
+  "type": "networkobject",
+  "links": {
+    "self": "https://10.10.20.65/api/fdm/latest/object/networks/5c28c4f5-9dad-11ea-9df4-6f7ee37184cb"
+  }
+}
+Added networkobject named NET_VPN_WEST with ID 5c28c4f5-9dad-11ea-9df4-6f7ee37184cb
+{
+  "version": "z5pv7kc54mbo",
+  "name": "NETG_VPN_CONCENTRATORS",
+  "description": "All VPN concentrators",
+  "isSystemDefined": false,
+  "id": "5c454da8-9dad-11ea-9df4-55415fe7190e",
+  "objects": [
+    {
+      "version": "g63jpzarkzqrb",
+      "name": "NET_VPN_EAST",
+      "id": "5c10a912-9dad-11ea-9df4-d7388b030995",
+      "type": "networkobject"
+    },
+    {
+      "version": "flpt44st6vbvk",
+      "name": "NET_VPN_WEST",
+      "id": "5c28c4f5-9dad-11ea-9df4-6f7ee37184cb",
+      "type": "networkobject"
+    }
+  ],
+  "type": "networkobjectgroup",
+  "links": {
+    "self": "https://10.10.20.65/api/fdm/latest/object/networkgroups/5c454da8-9dad-11ea-9df4-55415fe7190e"
+  }
+}
+Added networkobjectgroup named NETG_VPN_CONCENTRATORS with ID 5c454da8-9dad-11ea-9df4-55415fe7190e
+{
+  "version": "dobr43lnfnpiu",
+  "name": "UDP_IKE",
+  "description": "Internet Key Exchange for IPsec VPNs",
+  "isSystemDefined": false,
+  "port": "500",
+  "id": "5c5f655b-9dad-11ea-9df4-ebf635e15042",
+  "type": "udpportobject",
+  "links": {
+    "self": "https://10.10.20.65/api/fdm/latest/object/udpports/5c5f655b-9dad-11ea-9df4-ebf635e15042"
+  }
+}
+Added udpportobject named UDP_IKE with ID 5c5f655b-9dad-11ea-9df4-ebf635e15042
+{
+  "version": "o7wh3uafxl6xg",
+  "name": "UDP_IPSEC_NATT",
+  "description": "ESP encapsulated in UDP for NAT Traversal IPsec",
+  "isSystemDefined": false,
+  "port": "4500",
+  "id": "5c7bee0e-9dad-11ea-9df4-bd5cb0942b05",
+  "type": "udpportobject",
+  "links": {
+    "self": "https://10.10.20.65/api/fdm/latest/object/udpports/5c7bee0e-9dad-11ea-9df4-bd5cb0942b05"
+  }
+}
+Added udpportobject named UDP_IPSEC_NATT with ID 5c7bee0e-9dad-11ea-9df4-bd5cb0942b05
+{
+  "version": "e7kfqvfthc7x2",
+  "name": "PROTO_ESP",
+  "description": "Encapsulating Security Payload for IPsec VPNs",
+  "isSystemDefined": false,
+  "protocol": "ESP",
+  "id": "5c947f21-9dad-11ea-9df4-cffa9542815b",
+  "type": "protocolobject",
+  "links": {
+    "self": "https://10.10.20.65/api/fdm/latest/object/protocols/5c947f21-9dad-11ea-9df4-cffa9542815b"
+  }
+}
+Added protocolobject named PROTO_ESP with ID 5c947f21-9dad-11ea-9df4-cffa9542815b
+{
+  "version": "hi6jh35t2wy4e",
+  "name": "PORTG_IPSEC",
+  "description": "All IPsec related ports and protocols",
+  "isSystemDefined": false,
+  "id": "5caee4f4-9dad-11ea-9df4-2548a88e7479",
+  "objects": [
+    {
+      "version": "e7kfqvfthc7x2",
+      "name": "PROTO_ESP",
+      "id": "5c947f21-9dad-11ea-9df4-cffa9542815b",
+      "type": "protocolobject"
+    },
+    {
+      "version": "dobr43lnfnpiu",
+      "name": "UDP_IKE",
+      "id": "5c5f655b-9dad-11ea-9df4-ebf635e15042",
+      "type": "udpportobject"
+    },
+    {
+      "version": "o7wh3uafxl6xg",
+      "name": "UDP_IPSEC_NATT",
+      "id": "5c7bee0e-9dad-11ea-9df4-bd5cb0942b05",
+      "type": "udpportobject"
+    }
+  ],
+  "type": "portobjectgroup",
+  "links": {
+    "self": "https://10.10.20.65/api/fdm/latest/object/portgroups/5caee4f4-9dad-11ea-9df4-2548a88e7479"
+  }
+}
+Added portobjectgroup named PORTG_IPSEC with ID 5caee4f4-9dad-11ea-9df4-2548a88e7479
+{
+  "version": "kpsnxhg65mwtk",
+  "name": "NET_TEST_1",
+  "description": "See RFC-5737 section 3",
+  "subType": "NETWORK",
+  "value": "192.0.2.0/24",
+  "isSystemDefined": false,
+  "dnsResolution": null,
+  "id": "5cc7c427-9dad-11ea-9df4-6bf01ac3fe79",
+  "type": "networkobject",
+  "links": {
+    "self": "https://10.10.20.65/api/fdm/latest/object/networks/5cc7c427-9dad-11ea-9df4-6bf01ac3fe79"
+  }
+}
+Added networkobject named NET_TEST_1 with ID 5cc7c427-9dad-11ea-9df4-6bf01ac3fe79
+{
+  "version": "lu6mx5l2xtsmn",
+  "name": "NET_TEST_2",
+  "description": "See RFC-5737 section 3",
+  "subType": "NETWORK",
+  "value": "198.51.100.0/24",
+  "isSystemDefined": false,
+  "dnsResolution": null,
+  "id": "5cdd20ea-9dad-11ea-9df4-4fa65416a592",
+  "type": "networkobject",
+  "links": {
+    "self": "https://10.10.20.65/api/fdm/latest/object/networks/5cdd20ea-9dad-11ea-9df4-4fa65416a592"
+  }
+}
+Added networkobject named NET_TEST_2 with ID 5cdd20ea-9dad-11ea-9df4-4fa65416a592
+{
+  "version": "yn6ksxzjqmdj",
+  "name": "NET_TEST_3",
+  "description": "See RFC-5737 section 3",
+  "subType": "NETWORK",
+  "value": "203.0.113.0/24",
+  "isSystemDefined": false,
+  "dnsResolution": null,
+  "id": "5cf2087d-9dad-11ea-9df4-5513b06cc0b4",
+  "type": "networkobject",
+  "links": {
+    "self": "https://10.10.20.65/api/fdm/latest/object/networks/5cf2087d-9dad-11ea-9df4-5513b06cc0b4"
+  }
+}
+Added networkobject named NET_TEST_3 with ID 5cf2087d-9dad-11ea-9df4-5513b06cc0b4
+{
+  "version": "pc7rmo5rkghjv",
+  "name": "NETG_BLACKLIST",
+  "description": "in-to-out blacklist",
+  "isSystemDefined": false,
+  "id": "5d0b0ec0-9dad-11ea-9df4-e58fc287357d",
+  "objects": [
+    {
+      "version": "kpsnxhg65mwtk",
+      "name": "NET_TEST_1",
+      "id": "5cc7c427-9dad-11ea-9df4-6bf01ac3fe79",
+      "type": "networkobject"
+    },
+    {
+      "version": "lu6mx5l2xtsmn",
+      "name": "NET_TEST_2",
+      "id": "5cdd20ea-9dad-11ea-9df4-4fa65416a592",
+      "type": "networkobject"
+    },
+    {
+      "version": "yn6ksxzjqmdj",
+      "name": "NET_TEST_3",
+      "id": "5cf2087d-9dad-11ea-9df4-5513b06cc0b4",
+      "type": "networkobject"
+    }
+  ],
+  "type": "networkobjectgroup",
+  "links": {
+    "self": "https://10.10.20.65/api/fdm/latest/object/networkgroups/5d0b0ec0-9dad-11ea-9df4-e58fc287357d"
+  }
+}
+Added networkobjectgroup named NETG_BLACKLIST with ID 5d0b0ec0-9dad-11ea-9df4-e58fc287357d
+{
+  "items": [
+    {
+      "version": "f2pirv6ffutzh",
+      "name": "inside_zone",
+      "description": null,
+      "interfaces": [
+        {
+          "version": "kcu6glvdsa23r",
+          "name": "inside",
+          "hardwareName": "GigabitEthernet0/1",
+          "id": "df144a30-9b4c-11ea-95ce-9f72102f3cf1",
+          "type": "physicalinterface"
+        }
+      ],
+      "mode": "ROUTED",
+      "id": "90c377e0-b3e5-11e5-8db8-651556da7898",
+      "type": "securityzone",
+      "links": {
+        "self": "https://10.10.20.65/api/fdm/latest/object/securityzones/90c377e0-b3e5-11e5-8db8-651556da7898"
+      }
+    }
+  ],
+  "paging": {
+    "prev": [],
+    "next": [],
+    "limit": 10,
+    "offset": 0,
+    "count": 1,
+    "pages": 0
+  }
+}
+{
+  "items": [
+    {
+      "version": "nb3xioyndbyfp",
+      "name": "outside_zone",
+      "description": null,
+      "interfaces": [
+        {
+          "version": "nbfuvqa3djsu7",
+          "name": "outside",
+          "hardwareName": "GigabitEthernet0/0",
+          "id": "8d6c41df-3e5f-465b-8e5a-d336b282f93f",
+          "type": "physicalinterface"
+        }
+      ],
+      "mode": "ROUTED",
+      "id": "b1af33e1-b3e5-11e5-8db8-afdc0be5453e",
+      "type": "securityzone",
+      "links": {
+        "self": "https://10.10.20.65/api/fdm/latest/object/securityzones/b1af33e1-b3e5-11e5-8db8-afdc0be5453e"
+      }
+    }
+  ],
+  "paging": {
+    "prev": [],
+    "next": [],
+    "limit": 10,
+    "offset": 0,
+    "count": 1,
+    "pages": 0
+  }
+}
+{
+  "version": "jmmiidctthdj6",
+  "name": "OUT_TO_IN_VPN",
+  "ruleId": 268435470,
+  "sourceZones": [
+    {
+      "version": "nb3xioyndbyfp",
+      "name": "outside_zone",
+      "id": "b1af33e1-b3e5-11e5-8db8-afdc0be5453e",
+      "type": "securityzone"
+    }
+  ],
+  "destinationZones": [
+    {
+      "version": "f2pirv6ffutzh",
+      "name": "inside_zone",
+      "id": "90c377e0-b3e5-11e5-8db8-651556da7898",
+      "type": "securityzone"
+    }
+  ],
+  "sourceNetworks": [],
+  "destinationNetworks": [
+    {
+      "version": "z5pv7kc54mbo",
+      "name": "NETG_VPN_CONCENTRATORS",
+      "id": "5c454da8-9dad-11ea-9df4-55415fe7190e",
+      "type": "networkobjectgroup"
+    }
+  ],
+  "sourcePorts": [],
+  "destinationPorts": [
+    {
+      "version": "hi6jh35t2wy4e",
+      "name": "PORTG_IPSEC",
+      "id": "5caee4f4-9dad-11ea-9df4-2548a88e7479",
+      "type": "portobjectgroup"
+    }
+  ],
+  "rulePosition": 10,
+  "ruleAction": "PERMIT",
+  "eventLogAction": "LOG_BOTH",
+  "identitySources": [],
+  "users": [],
+  "embeddedAppFilter": null,
+  "urlFilter": null,
+  "intrusionPolicy": null,
+  "filePolicy": null,
+  "logFiles": false,
+  "syslogServer": null,
+  "destinationDynamicObjects": [],
+  "sourceDynamicObjects": [],
+  "id": "5d4b7323-9dad-11ea-9df4-3f53e1db9db1",
+  "type": "accessrule",
+  "links": {
+    "self": "https://10.10.20.65/api/fdm/latest/policy/accesspolicies/c78e66bc-cb57-43fe-bcbf-96b79b3475b3/accessrules/5d4b7323-9dad-11ea-9df4-3f53e1db9db1"
+  }
+}
+{
+  "version": "pk6i66wvrhmg",
+  "name": "IN_TO_OUT_BLACKLIST",
+  "ruleId": 268435471,
+  "sourceZones": [
+    {
+      "version": "f2pirv6ffutzh",
+      "name": "inside_zone",
+      "id": "90c377e0-b3e5-11e5-8db8-651556da7898",
+      "type": "securityzone"
+    }
+  ],
+  "destinationZones": [
+    {
+      "version": "nb3xioyndbyfp",
+      "name": "outside_zone",
+      "id": "b1af33e1-b3e5-11e5-8db8-afdc0be5453e",
+      "type": "securityzone"
+    }
+  ],
+  "sourceNetworks": [],
+  "destinationNetworks": [
+    {
+      "version": "pc7rmo5rkghjv",
+      "name": "NETG_BLACKLIST",
+      "id": "5d0b0ec0-9dad-11ea-9df4-e58fc287357d",
+      "type": "networkobjectgroup"
+    }
+  ],
+  "sourcePorts": [],
+  "destinationPorts": [],
+  "rulePosition": 20,
+  "ruleAction": "DENY",
+  "eventLogAction": "LOG_BOTH",
+  "identitySources": [],
+  "users": [],
+  "embeddedAppFilter": null,
+  "urlFilter": null,
+  "intrusionPolicy": null,
+  "filePolicy": null,
+  "logFiles": false,
+  "syslogServer": null,
+  "destinationDynamicObjects": [],
+  "sourceDynamicObjects": [],
+  "id": "5d712396-9dad-11ea-9df4-7ff92f090d93",
+  "type": "accessrule",
+  "links": {
+    "self": "https://10.10.20.65/api/fdm/latest/policy/accesspolicies/c78e66bc-cb57-43fe-bcbf-96b79b3475b3/accessrules/5d712396-9dad-11ea-9df4-7ff92f090d93"
+  }
+}
+{
+  "items": [
+    {
+      "version": "fv5u7do5i47jf",
+      "count": 1,
+      "compliant": true,
+      "id": "bf6304b0-9daa-11ea-9df4-cfb3e952d609",
+      "licenseType": "THREAT",
+      "type": "license",
+      "links": {
+        "self": "https://10.10.20.65/api/fdm/latest/license/smartlicenses/bf6304b0-9daa-11ea-9df4-cfb3e952d609"
+      }
+    },
+    {
+      "version": "dnjgrmf5h52lf",
+      "count": 1,
+      "compliant": true,
+      "id": "6bc24294-9b55-11ea-8b22-d9fe7f42c1b7",
+      "licenseType": "BASE",
+      "type": "license",
+      "links": {
+        "self": "https://10.10.20.65/api/fdm/latest/license/smartlicenses/6bc24294-9b55-11ea-8b22-d9fe7f42c1b7"
+      }
+    }
+  ],
+  "paging": {
+    "prev": [],
+    "next": [],
+    "limit": 10,
+    "offset": 0,
+    "count": 2,
+    "pages": 0
+  }
+}
+{
+  "items": [
+    {
+      "version": "cdongmehhy7re",
+      "name": "Balanced Security and Connectivity",
+      "description": "Balanced Security and Connectivity Layer",
+      "rules": {
+        "links": {
+          "self": "https://10.10.20.65/api/fdm/latest/policy/intrusionpolicies/93a735a1-9b4c-11ea-95ce-bb199e75725f/intrusionrules"
+        }
+      },
+      "id": "93a735a1-9b4c-11ea-95ce-bb199e75725f",
+      "type": "intrusionpolicy",
+      "links": {
+        "self": "https://10.10.20.65/api/fdm/latest/policy/intrusionpolicies/93a735a1-9b4c-11ea-95ce-bb199e75725f"
+      }
+    }
+  ],
+  "paging": {
+    "prev": [],
+    "next": [],
+    "limit": 10,
+    "offset": 0,
+    "count": 1,
+    "pages": 0
+  }
+}
+{
+  "version": "jmmiidctthdj6",
+  "name": "OUT_TO_IN_VPN",
+  "ruleId": 268435470,
+  "sourceZones": [
+    {
+      "version": "nb3xioyndbyfp",
+      "name": "outside_zone",
+      "id": "b1af33e1-b3e5-11e5-8db8-afdc0be5453e",
+      "type": "securityzone"
+    }
+  ],
+  "destinationZones": [
+    {
+      "version": "f2pirv6ffutzh",
+      "name": "inside_zone",
+      "id": "90c377e0-b3e5-11e5-8db8-651556da7898",
+      "type": "securityzone"
+    }
+  ],
+  "sourceNetworks": [],
+  "destinationNetworks": [
+    {
+      "version": "z5pv7kc54mbo",
+      "name": "NETG_VPN_CONCENTRATORS",
+      "id": "5c454da8-9dad-11ea-9df4-55415fe7190e",
+      "type": "networkobjectgroup"
+    }
+  ],
+  "sourcePorts": [],
+  "destinationPorts": [
+    {
+      "version": "hi6jh35t2wy4e",
+      "name": "PORTG_IPSEC",
+      "id": "5caee4f4-9dad-11ea-9df4-2548a88e7479",
+      "type": "portobjectgroup"
+    }
+  ],
+  "ruleAction": "PERMIT",
+  "eventLogAction": "LOG_BOTH",
+  "identitySources": [],
+  "users": [],
+  "embeddedAppFilter": null,
+  "urlFilter": null,
+  "intrusionPolicy": null,
+  "filePolicy": null,
+  "logFiles": false,
+  "syslogServer": null,
+  "destinationDynamicObjects": [],
+  "sourceDynamicObjects": [],
+  "id": "5d4b7323-9dad-11ea-9df4-3f53e1db9db1",
+  "type": "accessrule",
+  "links": {
+    "self": "https://10.10.20.65/api/fdm/latest/policy/accesspolicies/c78e66bc-cb57-43fe-bcbf-96b79b3475b3/accessrules/5d4b7323-9dad-11ea-9df4-3f53e1db9db1"
+  }
+}
+{
+  "version": "jttafzfztp44n",
+  "name": "OUT_TO_IN_VPN",
+  "ruleId": 268435470,
+  "sourceZones": [
+    {
+      "version": "nb3xioyndbyfp",
+      "name": "outside_zone",
+      "id": "b1af33e1-b3e5-11e5-8db8-afdc0be5453e",
+      "type": "securityzone"
+    }
+  ],
+  "destinationZones": [
+    {
+      "version": "f2pirv6ffutzh",
+      "name": "inside_zone",
+      "id": "90c377e0-b3e5-11e5-8db8-651556da7898",
+      "type": "securityzone"
+    }
+  ],
+  "sourceNetworks": [],
+  "destinationNetworks": [
+    {
+      "version": "z5pv7kc54mbo",
+      "name": "NETG_VPN_CONCENTRATORS",
+      "id": "5c454da8-9dad-11ea-9df4-55415fe7190e",
+      "type": "networkobjectgroup"
+    }
+  ],
+  "sourcePorts": [],
+  "destinationPorts": [
+    {
+      "version": "hi6jh35t2wy4e",
+      "name": "PORTG_IPSEC",
+      "id": "5caee4f4-9dad-11ea-9df4-2548a88e7479",
+      "type": "portobjectgroup"
+    }
+  ],
+  "ruleAction": "PERMIT",
+  "eventLogAction": "LOG_BOTH",
+  "identitySources": [],
+  "users": [],
+  "embeddedAppFilter": null,
+  "urlFilter": null,
+  "intrusionPolicy": {
+    "version": "cdongmehhy7re",
+    "name": "Balanced Security and Connectivity",
+    "id": "93a735a1-9b4c-11ea-95ce-bb199e75725f",
+    "type": "intrusionpolicy"
+  },
+  "filePolicy": null,
+  "logFiles": false,
+  "syslogServer": null,
+  "destinationDynamicObjects": [],
+  "sourceDynamicObjects": [],
+  "id": "5d4b7323-9dad-11ea-9df4-3f53e1db9db1",
+  "type": "accessrule",
+  "links": {
+    "self": "https://10.10.20.65/api/fdm/latest/policy/accesspolicies/c78e66bc-cb57-43fe-bcbf-96b79b3475b3/accessrules/5d4b7323-9dad-11ea-9df4-3f53e1db9db1"
+  }
+}
+{
+  "items": [],
+  "paging": {
+    "prev": [],
+    "next": [],
+    "limit": 10,
+    "offset": 0,
+    "count": 0,
+    "pages": 0
+  }
+}
+{
+  "id": "5e2b4bdb-9dad-11ea-9df4-f364ca7c63d0",
+  "statusMessage": null,
+  "statusMessages": null,
+  "modifiedObjects": {},
+  "cliErrorMessage": null,
+  "queuedTime": 1590317852302,
+  "startTime": -1,
+  "endTime": -1,
+  "state": "QUEUED",
+  "name": "User (admin) Triggered Deployment",
+  "deploymentStatusMessages": [],
+  "links": {
+    "self": "https://10.10.20.65/api/fdm/latest/operational/deploy/5e2b4bdb-9dad-11ea-9df4-f364ca7c63d0"
+  }
+}
+Deployment 5e2b4bdb-9dad-11ea-9df4-f364ca7c63d0 in process: QUEUED
+{
+  "id": "5e2b4bdb-9dad-11ea-9df4-f364ca7c63d0",
+  "statusMessage": null,
+  "statusMessages": null,
+  "modifiedObjects": {
+    "AccessPolicy": [
+      "NGFW-Access-Policy"
+    ],
+    "AccessRule": [
+      "OUT_TO_IN_VPN",
+      "IN_TO_OUT_BLACKLIST",
+      "OUT_TO_IN_VPN",
+      "IN_TO_OUT_BLACKLIST"
+    ],
+    "NetworkObject": [
+      "NET_TEST_3",
+      "NET_TEST_1",
+      "NET_VPN_WEST",
+      "NET_TEST_2",
+      "NET_TEST_3",
+      "NET_VPN_EAST",
+      "NET_VPN_EAST",
+      "NET_TEST_2",
+      "NET_VPN_WEST",
+      "NET_TEST_1"
+    ],
+    "NetworkObjectGroup": [
+      "NETG_VPN_CONCENTRATORS",
+      "NETG_BLACKLIST",
+      "NETG_BLACKLIST",
+      "NETG_VPN_CONCENTRATORS"
+    ],
+    "PortObjectGroup": [
+      "PORTG_IPSEC",
+      "PORTG_IPSEC"
+    ],
+    "ProtocolObject": [
+      "PROTO_ESP",
+      "PROTO_ESP"
+    ],
+    "UDPPortObject": [
+      "UDP_IKE",
+      "UDP_IPSEC_NATT",
+      "UDP_IPSEC_NATT",
+      "UDP_IKE"
+    ]
+  },
+  "cliErrorMessage": null,
+  "queuedTime": 1590317852302,
+  "startTime": 1590317853194,
+  "endTime": -1,
+  "state": "DEPLOYING",
+  "name": "User (admin) Triggered Deployment",
+  "deploymentStatusMessages": [
+    {
+      "taskName": "PendingChangesTask",
+      "timestamp": 1590317852705,
+      "message": "Task begin",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "STARTED",
+      "type": "deploymentstatusmessage"
+    },
+    {
+      "taskName": "PendingChangesTask",
+      "timestamp": 1590317853174,
+      "message": "Task complete in 469ms",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "FINISHED",
+      "type": "deploymentstatusmessage"
+    },
+    {
+      "taskName": "ChangeStateToDeployingTask",
+      "timestamp": 1590317853184,
+      "message": "Task begin",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "STARTED",
+      "type": "deploymentstatusmessage"
+    },
+    {
+      "taskName": "ChangeStateToDeployingTask",
+      "timestamp": 1590317853224,
+      "message": "Task complete in 40ms",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "FINISHED",
+      "type": "deploymentstatusmessage"
+    },
+    {
+      "taskName": "InspectDeploymentEntriesTask",
+      "timestamp": 1590317853230,
+      "message": "Task begin",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "STARTED",
+      "type": "deploymentstatusmessage"
+    },
+    {
+      "taskName": "InspectDeploymentEntriesTask",
+      "timestamp": 1590317853913,
+      "message": "Task complete in 683ms",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "FINISHED",
+      "type": "deploymentstatusmessage"
+    },
+    {
+      "taskName": "CalculateDeltaTask",
+      "timestamp": 1590317853931,
+      "message": "Task begin",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "STARTED",
+      "type": "deploymentstatusmessage"
+    },
+    {
+      "taskName": "CalculateDeltaTask",
+      "timestamp": 1590317854139,
+      "message": "Task complete in 208ms",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "FINISHED",
+      "type": "deploymentstatusmessage"
+    },
+    {
+      "taskName": "PopulateStatusTask",
+      "timestamp": 1590317854158,
+      "message": "Task begin",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "STARTED",
+      "type": "deploymentstatusmessage"
+    },
+    {
+      "taskName": "PopulateStatusTask",
+      "timestamp": 1590317854177,
+      "message": "Task complete in 19ms",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "FINISHED",
+      "type": "deploymentstatusmessage"
+    },
+    {
+      "taskName": "StageDirectoryTask",
+      "timestamp": 1590317854188,
+      "message": "Task begin",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "STARTED",
+      "type": "deploymentstatusmessage"
+    },
+    {
+      "taskName": "StageDirectoryTask",
+      "timestamp": 1590317854194,
+      "message": "Task complete in 6ms",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "FINISHED",
+      "type": "deploymentstatusmessage"
+    },
+    {
+      "taskName": "HAExportTask",
+      "timestamp": 1590317854200,
+      "message": "Task begin",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "STARTED",
+      "type": "deploymentstatusmessage"
+    },
+    {
+      "taskName": "LinaOnlyExportTask",
+      "timestamp": 1590317854204,
+      "message": "Task begin",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "STARTED",
+      "type": "deploymentstatusmessage"
+    },
+    {
+      "taskName": "HAExportTask",
+      "timestamp": 1590317854206,
+      "message": "Task complete in 6ms",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "FINISHED",
+      "type": "deploymentstatusmessage"
+    },
+    {
+      "taskName": "LinaOnlyExportTask",
+      "timestamp": 1590317854218,
+      "message": "Task complete in 14ms",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "FINISHED",
+      "type": "deploymentstatusmessage"
+    },
+    {
+      "taskName": "SnortExportTask",
+      "timestamp": 1590317854224,
+      "message": "Task begin",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "STARTED",
+      "type": "deploymentstatusmessage"
+    },
+    {
+      "taskName": "LinaExportTask",
+      "timestamp": 1590317854227,
+      "message": "Task begin",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "STARTED",
+      "type": "deploymentstatusmessage"
+    },
+    {
+      "taskName": "LinaExportTask",
+      "timestamp": 1590317854270,
+      "message": "Task complete in 43ms",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "FINISHED",
+      "type": "deploymentstatusmessage"
+    }
+  ],
+  "links": {
+    "self": "https://10.10.20.65/api/fdm/latest/operational/deploy/5e2b4bdb-9dad-11ea-9df4-f364ca7c63d0"
+  }
+}
+Deployment 5e2b4bdb-9dad-11ea-9df4-f364ca7c63d0 in process: DEPLOYING
+{
+  "id": "5e2b4bdb-9dad-11ea-9df4-f364ca7c63d0",
+  "statusMessage": null,
+  "statusMessages": null,
+  "modifiedObjects": {
+    "AccessPolicy": [
+      "NGFW-Access-Policy"
+    ],
+    "AccessRule": [
+      "OUT_TO_IN_VPN",
+      "IN_TO_OUT_BLACKLIST",
+      "OUT_TO_IN_VPN",
+      "IN_TO_OUT_BLACKLIST"
+    ],
+    "NetworkObject": [
+      "NET_TEST_3",
+      "NET_TEST_1",
+      "NET_VPN_WEST",
+      "NET_TEST_2",
+      "NET_TEST_3",
+      "NET_VPN_EAST",
+      "NET_VPN_EAST",
+      "NET_TEST_2",
+      "NET_VPN_WEST",
+      "NET_TEST_1"
+    ],
+    "NetworkObjectGroup": [
+      "NETG_VPN_CONCENTRATORS",
+      "NETG_BLACKLIST",
+      "NETG_BLACKLIST",
+      "NETG_VPN_CONCENTRATORS"
+    ],
+    "PortObjectGroup": [
+      "PORTG_IPSEC",
+      "PORTG_IPSEC"
+    ],
+    "ProtocolObject": [
+      "PROTO_ESP",
+      "PROTO_ESP"
+    ],
+    "UDPPortObject": [
+      "UDP_IKE",
+      "UDP_IPSEC_NATT",
+      "UDP_IPSEC_NATT",
+      "UDP_IKE"
+    ]
+  },
+  "cliErrorMessage": null,
+  "queuedTime": 1590317852302,
+  "startTime": 1590317853194,
+  "endTime": -1,
+  "state": "DEPLOYING",
+  "name": "User (admin) Triggered Deployment",
+  "deploymentStatusMessages": [
+    {
+      "taskName": "PendingChangesTask",
+      "timestamp": 1590317852705,
+      "message": "Task begin",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "STARTED",
+      "type": "deploymentstatusmessage"
+    },
+    {
+      "taskName": "PendingChangesTask",
+      "timestamp": 1590317853174,
+      "message": "Task complete in 469ms",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "FINISHED",
+      "type": "deploymentstatusmessage"
+    },
+    {
+      "taskName": "ChangeStateToDeployingTask",
+      "timestamp": 1590317853184,
+      "message": "Task begin",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "STARTED",
+      "type": "deploymentstatusmessage"
+    },
+    {
+      "taskName": "ChangeStateToDeployingTask",
+      "timestamp": 1590317853224,
+      "message": "Task complete in 40ms",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "FINISHED",
+      "type": "deploymentstatusmessage"
+    },
+    {
+      "taskName": "InspectDeploymentEntriesTask",
+      "timestamp": 1590317853230,
+      "message": "Task begin",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "STARTED",
+      "type": "deploymentstatusmessage"
+    },
+    {
+      "taskName": "InspectDeploymentEntriesTask",
+      "timestamp": 1590317853913,
+      "message": "Task complete in 683ms",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "FINISHED",
+      "type": "deploymentstatusmessage"
+    },
+    {
+      "taskName": "CalculateDeltaTask",
+      "timestamp": 1590317853931,
+      "message": "Task begin",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "STARTED",
+      "type": "deploymentstatusmessage"
+    },
+    {
+      "taskName": "CalculateDeltaTask",
+      "timestamp": 1590317854139,
+      "message": "Task complete in 208ms",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "FINISHED",
+      "type": "deploymentstatusmessage"
+    },
+    {
+      "taskName": "PopulateStatusTask",
+      "timestamp": 1590317854158,
+      "message": "Task begin",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "STARTED",
+      "type": "deploymentstatusmessage"
+    },
+    {
+      "taskName": "PopulateStatusTask",
+      "timestamp": 1590317854177,
+      "message": "Task complete in 19ms",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "FINISHED",
+      "type": "deploymentstatusmessage"
+    },
+    {
+      "taskName": "StageDirectoryTask",
+      "timestamp": 1590317854188,
+      "message": "Task begin",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "STARTED",
+      "type": "deploymentstatusmessage"
+    },
+    {
+      "taskName": "StageDirectoryTask",
+      "timestamp": 1590317854194,
+      "message": "Task complete in 6ms",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "FINISHED",
+      "type": "deploymentstatusmessage"
+    },
+    {
+      "taskName": "HAExportTask",
+      "timestamp": 1590317854200,
+      "message": "Task begin",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "STARTED",
+      "type": "deploymentstatusmessage"
+    },
+    {
+      "taskName": "LinaOnlyExportTask",
+      "timestamp": 1590317854204,
+      "message": "Task begin",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "STARTED",
+      "type": "deploymentstatusmessage"
+    },
+    {
+      "taskName": "HAExportTask",
+      "timestamp": 1590317854206,
+      "message": "Task complete in 6ms",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "FINISHED",
+      "type": "deploymentstatusmessage"
+    },
+    {
+      "taskName": "LinaOnlyExportTask",
+      "timestamp": 1590317854218,
+      "message": "Task complete in 14ms",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "FINISHED",
+      "type": "deploymentstatusmessage"
+    },
+    {
+      "taskName": "SnortExportTask",
+      "timestamp": 1590317854224,
+      "message": "Task begin",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "STARTED",
+      "type": "deploymentstatusmessage"
+    },
+    {
+      "taskName": "LinaExportTask",
+      "timestamp": 1590317854227,
+      "message": "Task begin",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "STARTED",
+      "type": "deploymentstatusmessage"
+    },
+    {
+      "taskName": "LinaExportTask",
+      "timestamp": 1590317854270,
+      "message": "Task complete in 43ms",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "FINISHED",
+      "type": "deploymentstatusmessage"
+    },
+    {
+      "taskName": "SnortExportTask",
+      "timestamp": 1590317863410,
+      "message": "Task complete in 9186ms",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "FINISHED",
+      "type": "deploymentstatusmessage"
+    },
+    {
+      "taskName": "PushLinaToDbTask",
+      "timestamp": 1590317863422,
+      "message": "Task begin",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "STARTED",
+      "type": "deploymentstatusmessage"
+    },
+    {
+      "taskName": "PushLinaToDbTask",
+      "timestamp": 1590317863432,
+      "message": "Task complete in 10ms",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "FINISHED",
+      "type": "deploymentstatusmessage"
+    },
+    {
+      "taskName": "HADeltaExportTask",
+      "timestamp": 1590317863439,
+      "message": "Task begin",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "STARTED",
+      "type": "deploymentstatusmessage"
+    },
+    {
+      "taskName": "HADeltaExportTask",
+      "timestamp": 1590317863445,
+      "message": "Task complete in 6ms",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "FINISHED",
+      "type": "deploymentstatusmessage"
+    },
+    {
+      "taskName": "RequiredPackagesExportTask",
+      "timestamp": 1590317863451,
+      "message": "Task begin",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "STARTED",
+      "type": "deploymentstatusmessage"
+    },
+    {
+      "taskName": "RequiredPackagesExportTask",
+      "timestamp": 1590317863488,
+      "message": "Task complete in 37ms",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "FINISHED",
+      "type": "deploymentstatusmessage"
+    },
+    {
+      "taskName": "ExportSSPConfigDeployTask",
+      "timestamp": 1590317863497,
+      "message": "Task begin",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "STARTED",
+      "type": "deploymentstatusmessage"
+    },
+    {
+      "taskName": "ExportSSPConfigDeployTask",
+      "timestamp": 1590317863503,
+      "message": "Task complete in 6ms",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "FINISHED",
+      "type": "deploymentstatusmessage"
+    },
+    {
+      "taskName": "ExportMultiDeviceDeployTask",
+      "timestamp": 1590317863509,
+      "message": "Task begin",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "STARTED",
+      "type": "deploymentstatusmessage"
+    },
+    {
+      "taskName": "ExportMultiDeviceDeployTask",
+      "timestamp": 1590317863519,
+      "message": "Task complete in 10ms",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "FINISHED",
+      "type": "deploymentstatusmessage"
+    },
+    {
+      "taskName": "ExportApplyerVersionInfoDeployTask",
+      "timestamp": 1590317863526,
+      "message": "Task begin",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "STARTED",
+      "type": "deploymentstatusmessage"
+    },
+    {
+      "taskName": "ExportApplyerVersionInfoDeployTask",
+      "timestamp": 1590317863598,
+      "message": "Task complete in 72ms",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "FINISHED",
+      "type": "deploymentstatusmessage"
+    },
+    {
+      "taskName": "LicenseEnforcementTask",
+      "timestamp": 1590317863604,
+      "message": "Task begin",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "STARTED",
+      "type": "deploymentstatusmessage"
+    },
+    {
+      "taskName": "LicenseEnforcementTask",
+      "timestamp": 1590317863638,
+      "message": "Task complete in 34ms",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "FINISHED",
+      "type": "deploymentstatusmessage"
+    },
+    {
+      "taskName": "CreateDeploymentArchiveTask",
+      "timestamp": 1590317863652,
+      "message": "Task begin",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "STARTED",
+      "type": "deploymentstatusmessage"
+    },
+    {
+      "taskName": "CreateDeploymentArchiveTask",
+      "timestamp": 1590317864177,
+      "message": "Task complete in 525ms",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "FINISHED",
+      "type": "deploymentstatusmessage"
+    },
+    {
+      "taskName": "ConfigDispatcherDeploymentTask",
+      "timestamp": 1590317864185,
+      "message": "Task begin",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "STARTED",
+      "type": "deploymentstatusmessage"
+    },
+    {
+      "taskName": "ConfigDispatcherDeploymentTask",
+      "timestamp": 1590317864543,
+      "message": "CD currently executing  PREPARE ",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "IN_PROGRESS",
+      "type": "deploymentstatusmessage"
+    }
+  ],
+  "links": {
+    "self": "https://10.10.20.65/api/fdm/latest/operational/deploy/5e2b4bdb-9dad-11ea-9df4-f364ca7c63d0"
+  }
+}
+Deployment 5e2b4bdb-9dad-11ea-9df4-f364ca7c63d0 in process: DEPLOYING
+{
+  "id": "5e2b4bdb-9dad-11ea-9df4-f364ca7c63d0",
+  "statusMessage": null,
+  "statusMessages": null,
+  "modifiedObjects": {
+    "AccessPolicy": [
+      "NGFW-Access-Policy"
+    ],
+    "AccessRule": [
+      "OUT_TO_IN_VPN",
+      "IN_TO_OUT_BLACKLIST",
+      "OUT_TO_IN_VPN",
+      "IN_TO_OUT_BLACKLIST"
+    ],
+    "NetworkObject": [
+      "NET_TEST_3",
+      "NET_TEST_1",
+      "NET_VPN_WEST",
+      "NET_TEST_2",
+      "NET_TEST_3",
+      "NET_VPN_EAST",
+      "NET_VPN_EAST",
+      "NET_TEST_2",
+      "NET_VPN_WEST",
+      "NET_TEST_1"
+    ],
+    "NetworkObjectGroup": [
+      "NETG_VPN_CONCENTRATORS",
+      "NETG_BLACKLIST",
+      "NETG_BLACKLIST",
+      "NETG_VPN_CONCENTRATORS"
+    ],
+    "PortObjectGroup": [
+      "PORTG_IPSEC",
+      "PORTG_IPSEC"
+    ],
+    "ProtocolObject": [
+      "PROTO_ESP",
+      "PROTO_ESP"
+    ],
+    "UDPPortObject": [
+      "UDP_IKE",
+      "UDP_IPSEC_NATT",
+      "UDP_IPSEC_NATT",
+      "UDP_IKE"
+    ]
+  },
+  "cliErrorMessage": null,
+  "queuedTime": 1590317852302,
+  "startTime": 1590317853194,
+  "endTime": -1,
+  "state": "DEPLOYING",
+  "name": "User (admin) Triggered Deployment",
+  "deploymentStatusMessages": [
+    {
+      "taskName": "PendingChangesTask",
+      "timestamp": 1590317852705,
+      "message": "Task begin",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "STARTED",
+      "type": "deploymentstatusmessage"
+    },
+    {
+      "taskName": "PendingChangesTask",
+      "timestamp": 1590317853174,
+      "message": "Task complete in 469ms",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "FINISHED",
+      "type": "deploymentstatusmessage"
+    },
+    {
+      "taskName": "ChangeStateToDeployingTask",
+      "timestamp": 1590317853184,
+      "message": "Task begin",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "STARTED",
+      "type": "deploymentstatusmessage"
+    },
+    {
+      "taskName": "ChangeStateToDeployingTask",
+      "timestamp": 1590317853224,
+      "message": "Task complete in 40ms",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "FINISHED",
+      "type": "deploymentstatusmessage"
+    },
+    {
+      "taskName": "InspectDeploymentEntriesTask",
+      "timestamp": 1590317853230,
+      "message": "Task begin",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "STARTED",
+      "type": "deploymentstatusmessage"
+    },
+    {
+      "taskName": "InspectDeploymentEntriesTask",
+      "timestamp": 1590317853913,
+      "message": "Task complete in 683ms",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "FINISHED",
+      "type": "deploymentstatusmessage"
+    },
+    {
+      "taskName": "CalculateDeltaTask",
+      "timestamp": 1590317853931,
+      "message": "Task begin",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "STARTED",
+      "type": "deploymentstatusmessage"
+    },
+    {
+      "taskName": "CalculateDeltaTask",
+      "timestamp": 1590317854139,
+      "message": "Task complete in 208ms",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "FINISHED",
+      "type": "deploymentstatusmessage"
+    },
+    {
+      "taskName": "PopulateStatusTask",
+      "timestamp": 1590317854158,
+      "message": "Task begin",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "STARTED",
+      "type": "deploymentstatusmessage"
+    },
+    {
+      "taskName": "PopulateStatusTask",
+      "timestamp": 1590317854177,
+      "message": "Task complete in 19ms",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "FINISHED",
+      "type": "deploymentstatusmessage"
+    },
+    {
+      "taskName": "StageDirectoryTask",
+      "timestamp": 1590317854188,
+      "message": "Task begin",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "STARTED",
+      "type": "deploymentstatusmessage"
+    },
+    {
+      "taskName": "StageDirectoryTask",
+      "timestamp": 1590317854194,
+      "message": "Task complete in 6ms",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "FINISHED",
+      "type": "deploymentstatusmessage"
+    },
+    {
+      "taskName": "HAExportTask",
+      "timestamp": 1590317854200,
+      "message": "Task begin",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "STARTED",
+      "type": "deploymentstatusmessage"
+    },
+    {
+      "taskName": "LinaOnlyExportTask",
+      "timestamp": 1590317854204,
+      "message": "Task begin",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "STARTED",
+      "type": "deploymentstatusmessage"
+    },
+    {
+      "taskName": "HAExportTask",
+      "timestamp": 1590317854206,
+      "message": "Task complete in 6ms",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "FINISHED",
+      "type": "deploymentstatusmessage"
+    },
+    {
+      "taskName": "LinaOnlyExportTask",
+      "timestamp": 1590317854218,
+      "message": "Task complete in 14ms",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "FINISHED",
+      "type": "deploymentstatusmessage"
+    },
+    {
+      "taskName": "SnortExportTask",
+      "timestamp": 1590317854224,
+      "message": "Task begin",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "STARTED",
+      "type": "deploymentstatusmessage"
+    },
+    {
+      "taskName": "LinaExportTask",
+      "timestamp": 1590317854227,
+      "message": "Task begin",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "STARTED",
+      "type": "deploymentstatusmessage"
+    },
+    {
+      "taskName": "LinaExportTask",
+      "timestamp": 1590317854270,
+      "message": "Task complete in 43ms",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "FINISHED",
+      "type": "deploymentstatusmessage"
+    },
+    {
+      "taskName": "SnortExportTask",
+      "timestamp": 1590317863410,
+      "message": "Task complete in 9186ms",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "FINISHED",
+      "type": "deploymentstatusmessage"
+    },
+    {
+      "taskName": "PushLinaToDbTask",
+      "timestamp": 1590317863422,
+      "message": "Task begin",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "STARTED",
+      "type": "deploymentstatusmessage"
+    },
+    {
+      "taskName": "PushLinaToDbTask",
+      "timestamp": 1590317863432,
+      "message": "Task complete in 10ms",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "FINISHED",
+      "type": "deploymentstatusmessage"
+    },
+    {
+      "taskName": "HADeltaExportTask",
+      "timestamp": 1590317863439,
+      "message": "Task begin",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "STARTED",
+      "type": "deploymentstatusmessage"
+    },
+    {
+      "taskName": "HADeltaExportTask",
+      "timestamp": 1590317863445,
+      "message": "Task complete in 6ms",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "FINISHED",
+      "type": "deploymentstatusmessage"
+    },
+    {
+      "taskName": "RequiredPackagesExportTask",
+      "timestamp": 1590317863451,
+      "message": "Task begin",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "STARTED",
+      "type": "deploymentstatusmessage"
+    },
+    {
+      "taskName": "RequiredPackagesExportTask",
+      "timestamp": 1590317863488,
+      "message": "Task complete in 37ms",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "FINISHED",
+      "type": "deploymentstatusmessage"
+    },
+    {
+      "taskName": "ExportSSPConfigDeployTask",
+      "timestamp": 1590317863497,
+      "message": "Task begin",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "STARTED",
+      "type": "deploymentstatusmessage"
+    },
+    {
+      "taskName": "ExportSSPConfigDeployTask",
+      "timestamp": 1590317863503,
+      "message": "Task complete in 6ms",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "FINISHED",
+      "type": "deploymentstatusmessage"
+    },
+    {
+      "taskName": "ExportMultiDeviceDeployTask",
+      "timestamp": 1590317863509,
+      "message": "Task begin",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "STARTED",
+      "type": "deploymentstatusmessage"
+    },
+    {
+      "taskName": "ExportMultiDeviceDeployTask",
+      "timestamp": 1590317863519,
+      "message": "Task complete in 10ms",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "FINISHED",
+      "type": "deploymentstatusmessage"
+    },
+    {
+      "taskName": "ExportApplyerVersionInfoDeployTask",
+      "timestamp": 1590317863526,
+      "message": "Task begin",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "STARTED",
+      "type": "deploymentstatusmessage"
+    },
+    {
+      "taskName": "ExportApplyerVersionInfoDeployTask",
+      "timestamp": 1590317863598,
+      "message": "Task complete in 72ms",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "FINISHED",
+      "type": "deploymentstatusmessage"
+    },
+    {
+      "taskName": "LicenseEnforcementTask",
+      "timestamp": 1590317863604,
+      "message": "Task begin",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "STARTED",
+      "type": "deploymentstatusmessage"
+    },
+    {
+      "taskName": "LicenseEnforcementTask",
+      "timestamp": 1590317863638,
+      "message": "Task complete in 34ms",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "FINISHED",
+      "type": "deploymentstatusmessage"
+    },
+    {
+      "taskName": "CreateDeploymentArchiveTask",
+      "timestamp": 1590317863652,
+      "message": "Task begin",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "STARTED",
+      "type": "deploymentstatusmessage"
+    },
+    {
+      "taskName": "CreateDeploymentArchiveTask",
+      "timestamp": 1590317864177,
+      "message": "Task complete in 525ms",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "FINISHED",
+      "type": "deploymentstatusmessage"
+    },
+    {
+      "taskName": "ConfigDispatcherDeploymentTask",
+      "timestamp": 1590317864185,
+      "message": "Task begin",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "STARTED",
+      "type": "deploymentstatusmessage"
+    },
+    {
+      "taskName": "ConfigDispatcherDeploymentTask",
+      "timestamp": 1590317864543,
+      "message": "CD currently executing  PREPARE ",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "IN_PROGRESS",
+      "type": "deploymentstatusmessage"
+    },
+    {
+      "taskName": "ConfigDispatcherDeploymentTask",
+      "timestamp": 1590317877729,
+      "message": "CD currently executing  SIGNAL ",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "IN_PROGRESS",
+      "type": "deploymentstatusmessage"
+    },
+    {
+      "taskName": "ConfigDispatcherDeploymentTask",
+      "timestamp": 1590317882764,
+      "message": "CD currently executing LINA_APPLY",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "IN_PROGRESS",
+      "type": "deploymentstatusmessage"
+    },
+    {
+      "taskName": "ConfigDispatcherDeploymentTask",
+      "timestamp": 1590317883274,
+      "message": "CD currently executing  FINALIZE ",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "IN_PROGRESS",
+      "type": "deploymentstatusmessage"
+    }
+  ],
+  "links": {
+    "self": "https://10.10.20.65/api/fdm/latest/operational/deploy/5e2b4bdb-9dad-11ea-9df4-f364ca7c63d0"
+  }
+}
+Deployment 5e2b4bdb-9dad-11ea-9df4-f364ca7c63d0 in process: DEPLOYING
+{
+  "id": "5e2b4bdb-9dad-11ea-9df4-f364ca7c63d0",
+  "statusMessage": "Deployed successfully",
+  "statusMessages": [
+    "Deployed successfully"
+  ],
+  "modifiedObjects": {
+    "AccessPolicy": [
+      "NGFW-Access-Policy"
+    ],
+    "AccessRule": [
+      "OUT_TO_IN_VPN",
+      "IN_TO_OUT_BLACKLIST",
+      "OUT_TO_IN_VPN",
+      "IN_TO_OUT_BLACKLIST"
+    ],
+    "NetworkObject": [
+      "NET_TEST_3",
+      "NET_TEST_1",
+      "NET_VPN_WEST",
+      "NET_TEST_2",
+      "NET_TEST_3",
+      "NET_VPN_EAST",
+      "NET_VPN_EAST",
+      "NET_TEST_2",
+      "NET_VPN_WEST",
+      "NET_TEST_1"
+    ],
+    "NetworkObjectGroup": [
+      "NETG_VPN_CONCENTRATORS",
+      "NETG_BLACKLIST",
+      "NETG_BLACKLIST",
+      "NETG_VPN_CONCENTRATORS"
+    ],
+    "PortObjectGroup": [
+      "PORTG_IPSEC",
+      "PORTG_IPSEC"
+    ],
+    "ProtocolObject": [
+      "PROTO_ESP",
+      "PROTO_ESP"
+    ],
+    "UDPPortObject": [
+      "UDP_IKE",
+      "UDP_IPSEC_NATT",
+      "UDP_IPSEC_NATT",
+      "UDP_IKE"
+    ]
+  },
+  "cliErrorMessage": null,
+  "queuedTime": 1590317852302,
+  "startTime": 1590317853194,
+  "endTime": 1590317888500,
+  "state": "DEPLOYED",
+  "name": "User (admin) Triggered Deployment",
+  "deploymentStatusMessages": [
+    {
+      "taskName": "PendingChangesTask",
+      "timestamp": 1590317852705,
+      "message": "Task begin",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "STARTED",
+      "type": "deploymentstatusmessage"
+    },
+    {
+      "taskName": "PendingChangesTask",
+      "timestamp": 1590317853174,
+      "message": "Task complete in 469ms",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "FINISHED",
+      "type": "deploymentstatusmessage"
+    },
+    {
+      "taskName": "ChangeStateToDeployingTask",
+      "timestamp": 1590317853184,
+      "message": "Task begin",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "STARTED",
+      "type": "deploymentstatusmessage"
+    },
+    {
+      "taskName": "ChangeStateToDeployingTask",
+      "timestamp": 1590317853224,
+      "message": "Task complete in 40ms",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "FINISHED",
+      "type": "deploymentstatusmessage"
+    },
+    {
+      "taskName": "InspectDeploymentEntriesTask",
+      "timestamp": 1590317853230,
+      "message": "Task begin",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "STARTED",
+      "type": "deploymentstatusmessage"
+    },
+    {
+      "taskName": "InspectDeploymentEntriesTask",
+      "timestamp": 1590317853913,
+      "message": "Task complete in 683ms",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "FINISHED",
+      "type": "deploymentstatusmessage"
+    },
+    {
+      "taskName": "CalculateDeltaTask",
+      "timestamp": 1590317853931,
+      "message": "Task begin",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "STARTED",
+      "type": "deploymentstatusmessage"
+    },
+    {
+      "taskName": "CalculateDeltaTask",
+      "timestamp": 1590317854139,
+      "message": "Task complete in 208ms",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "FINISHED",
+      "type": "deploymentstatusmessage"
+    },
+    {
+      "taskName": "PopulateStatusTask",
+      "timestamp": 1590317854158,
+      "message": "Task begin",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "STARTED",
+      "type": "deploymentstatusmessage"
+    },
+    {
+      "taskName": "PopulateStatusTask",
+      "timestamp": 1590317854177,
+      "message": "Task complete in 19ms",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "FINISHED",
+      "type": "deploymentstatusmessage"
+    },
+    {
+      "taskName": "StageDirectoryTask",
+      "timestamp": 1590317854188,
+      "message": "Task begin",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "STARTED",
+      "type": "deploymentstatusmessage"
+    },
+    {
+      "taskName": "StageDirectoryTask",
+      "timestamp": 1590317854194,
+      "message": "Task complete in 6ms",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "FINISHED",
+      "type": "deploymentstatusmessage"
+    },
+    {
+      "taskName": "HAExportTask",
+      "timestamp": 1590317854200,
+      "message": "Task begin",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "STARTED",
+      "type": "deploymentstatusmessage"
+    },
+    {
+      "taskName": "LinaOnlyExportTask",
+      "timestamp": 1590317854204,
+      "message": "Task begin",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "STARTED",
+      "type": "deploymentstatusmessage"
+    },
+    {
+      "taskName": "HAExportTask",
+      "timestamp": 1590317854206,
+      "message": "Task complete in 6ms",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "FINISHED",
+      "type": "deploymentstatusmessage"
+    },
+    {
+      "taskName": "LinaOnlyExportTask",
+      "timestamp": 1590317854218,
+      "message": "Task complete in 14ms",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "FINISHED",
+      "type": "deploymentstatusmessage"
+    },
+    {
+      "taskName": "SnortExportTask",
+      "timestamp": 1590317854224,
+      "message": "Task begin",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "STARTED",
+      "type": "deploymentstatusmessage"
+    },
+    {
+      "taskName": "LinaExportTask",
+      "timestamp": 1590317854227,
+      "message": "Task begin",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "STARTED",
+      "type": "deploymentstatusmessage"
+    },
+    {
+      "taskName": "LinaExportTask",
+      "timestamp": 1590317854270,
+      "message": "Task complete in 43ms",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "FINISHED",
+      "type": "deploymentstatusmessage"
+    },
+    {
+      "taskName": "SnortExportTask",
+      "timestamp": 1590317863410,
+      "message": "Task complete in 9186ms",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "FINISHED",
+      "type": "deploymentstatusmessage"
+    },
+    {
+      "taskName": "PushLinaToDbTask",
+      "timestamp": 1590317863422,
+      "message": "Task begin",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "STARTED",
+      "type": "deploymentstatusmessage"
+    },
+    {
+      "taskName": "PushLinaToDbTask",
+      "timestamp": 1590317863432,
+      "message": "Task complete in 10ms",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "FINISHED",
+      "type": "deploymentstatusmessage"
+    },
+    {
+      "taskName": "HADeltaExportTask",
+      "timestamp": 1590317863439,
+      "message": "Task begin",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "STARTED",
+      "type": "deploymentstatusmessage"
+    },
+    {
+      "taskName": "HADeltaExportTask",
+      "timestamp": 1590317863445,
+      "message": "Task complete in 6ms",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "FINISHED",
+      "type": "deploymentstatusmessage"
+    },
+    {
+      "taskName": "RequiredPackagesExportTask",
+      "timestamp": 1590317863451,
+      "message": "Task begin",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "STARTED",
+      "type": "deploymentstatusmessage"
+    },
+    {
+      "taskName": "RequiredPackagesExportTask",
+      "timestamp": 1590317863488,
+      "message": "Task complete in 37ms",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "FINISHED",
+      "type": "deploymentstatusmessage"
+    },
+    {
+      "taskName": "ExportSSPConfigDeployTask",
+      "timestamp": 1590317863497,
+      "message": "Task begin",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "STARTED",
+      "type": "deploymentstatusmessage"
+    },
+    {
+      "taskName": "ExportSSPConfigDeployTask",
+      "timestamp": 1590317863503,
+      "message": "Task complete in 6ms",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "FINISHED",
+      "type": "deploymentstatusmessage"
+    },
+    {
+      "taskName": "ExportMultiDeviceDeployTask",
+      "timestamp": 1590317863509,
+      "message": "Task begin",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "STARTED",
+      "type": "deploymentstatusmessage"
+    },
+    {
+      "taskName": "ExportMultiDeviceDeployTask",
+      "timestamp": 1590317863519,
+      "message": "Task complete in 10ms",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "FINISHED",
+      "type": "deploymentstatusmessage"
+    },
+    {
+      "taskName": "ExportApplyerVersionInfoDeployTask",
+      "timestamp": 1590317863526,
+      "message": "Task begin",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "STARTED",
+      "type": "deploymentstatusmessage"
+    },
+    {
+      "taskName": "ExportApplyerVersionInfoDeployTask",
+      "timestamp": 1590317863598,
+      "message": "Task complete in 72ms",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "FINISHED",
+      "type": "deploymentstatusmessage"
+    },
+    {
+      "taskName": "LicenseEnforcementTask",
+      "timestamp": 1590317863604,
+      "message": "Task begin",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "STARTED",
+      "type": "deploymentstatusmessage"
+    },
+    {
+      "taskName": "LicenseEnforcementTask",
+      "timestamp": 1590317863638,
+      "message": "Task complete in 34ms",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "FINISHED",
+      "type": "deploymentstatusmessage"
+    },
+    {
+      "taskName": "CreateDeploymentArchiveTask",
+      "timestamp": 1590317863652,
+      "message": "Task begin",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "STARTED",
+      "type": "deploymentstatusmessage"
+    },
+    {
+      "taskName": "CreateDeploymentArchiveTask",
+      "timestamp": 1590317864177,
+      "message": "Task complete in 525ms",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "FINISHED",
+      "type": "deploymentstatusmessage"
+    },
+    {
+      "taskName": "ConfigDispatcherDeploymentTask",
+      "timestamp": 1590317864185,
+      "message": "Task begin",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "STARTED",
+      "type": "deploymentstatusmessage"
+    },
+    {
+      "taskName": "ConfigDispatcherDeploymentTask",
+      "timestamp": 1590317864543,
+      "message": "CD currently executing  PREPARE ",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "IN_PROGRESS",
+      "type": "deploymentstatusmessage"
+    },
+    {
+      "taskName": "ConfigDispatcherDeploymentTask",
+      "timestamp": 1590317877729,
+      "message": "CD currently executing  SIGNAL ",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "IN_PROGRESS",
+      "type": "deploymentstatusmessage"
+    },
+    {
+      "taskName": "ConfigDispatcherDeploymentTask",
+      "timestamp": 1590317882764,
+      "message": "CD currently executing LINA_APPLY",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "IN_PROGRESS",
+      "type": "deploymentstatusmessage"
+    },
+    {
+      "taskName": "ConfigDispatcherDeploymentTask",
+      "timestamp": 1590317883274,
+      "message": "CD currently executing  FINALIZE ",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "IN_PROGRESS",
+      "type": "deploymentstatusmessage"
+    },
+    {
+      "taskName": "",
+      "timestamp": 1590317888491,
+      "message": "Deployed successfully",
+      "properties": {},
+      "taskState": null,
+      "type": "deploymentstatusmessage"
+    },
+    {
+      "taskName": "ConfigDispatcherDeploymentTask",
+      "timestamp": 1590317888507,
+      "message": "Task complete in 24322ms",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "FINISHED",
+      "type": "deploymentstatusmessage"
+    },
+    {
+      "taskName": "FixPermissionsTask",
+      "timestamp": 1590317888514,
+      "message": "Task begin",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "STARTED",
+      "type": "deploymentstatusmessage"
+    },
+    {
+      "taskName": "FixPermissionsTask",
+      "timestamp": 1590317888520,
+      "message": "Task complete in 6ms",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "FINISHED",
+      "type": "deploymentstatusmessage"
+    },
+    {
+      "taskName": "UpdateCurrentPolicyBundleForLinaOnlyDeployTask",
+      "timestamp": 1590317888528,
+      "message": "Task begin",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "STARTED",
+      "type": "deploymentstatusmessage"
+    },
+    {
+      "taskName": "UpdateCurrentPolicyBundleForLinaOnlyDeployTask",
+      "timestamp": 1590317888534,
+      "message": "Task complete in 6ms",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "FINISHED",
+      "type": "deploymentstatusmessage"
+    },
+    {
+      "taskName": "ChangeStateToDeployedTask",
+      "timestamp": 1590317888541,
+      "message": "Task begin",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "STARTED",
+      "type": "deploymentstatusmessage"
+    },
+    {
+      "taskName": "ChangeStateToDeployedTask",
+      "timestamp": 1590317888592,
+      "message": "Task complete in 51ms",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "FINISHED",
+      "type": "deploymentstatusmessage"
+    },
+    {
+      "taskName": "RefreshRealmTask",
+      "timestamp": 1590317888608,
+      "message": "Task begin",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "STARTED",
+      "type": "deploymentstatusmessage"
+    },
+    {
+      "taskName": "RefreshRealmTask",
+      "timestamp": 1590317888616,
+      "message": "Task complete in 8ms",
+      "properties": {
+        "hideFromUi": true
+      },
+      "taskState": "FINISHED",
+      "type": "deploymentstatusmessage"
+    }
+  ],
+  "links": {
+    "self": "https://10.10.20.65/api/fdm/latest/operational/deploy/5e2b4bdb-9dad-11ea-9df4-f364ca7c63d0"
+  }
+}
+Deployment 5e2b4bdb-9dad-11ea-9df4-f364ca7c63d0 complete: DEPLOYED

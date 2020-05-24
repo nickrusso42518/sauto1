@@ -122,6 +122,7 @@ class CiscoFTD:
         such as data, json, files, params, etc.
         """
 
+        # Issue the general request based on method arguments
         resp = self.sess.request(
             url=f"{self.api_path}/{resource}",
             method=method,
@@ -129,6 +130,12 @@ class CiscoFTD:
             verify=self.verify,
             **kwargs,
         )
+
+        # Optional debugging to view the response body if it exists
+        if resp.text:
+            print(json.dumps(resp.json(), indent=2))
+
+        # Ensure the request succeeded
         resp.raise_for_status()
 
         # If body exists, turn to JSON and return; Else, return empty dict
@@ -261,9 +268,6 @@ class CiscoFTD:
         }
         rule.update(kwargs)
 
-        # Optional debugging to view the completed VPN access rule
-        # print(json.dumps(rule, indent=2))
-
         # Issue a POST request to add the access rule and return the reponse
         resp = self.req(
             f"policy/accesspolicies/{self.policy_id}/accessrules",
@@ -284,9 +288,6 @@ class CiscoFTD:
 
         # Update the rule response with new kwargs, overwriting duplicates
         rule.update(kwargs)
-
-        # Optional debugging to view the completed VPN access rule
-        # print(json.dumps(rule, indent=2))
 
         # Issue a POST request to update the access rule and return the reponse
         resp = self.req(url, method="put", json=rule)
@@ -412,7 +413,7 @@ class CiscoFTD:
             # by ID and store the end time again. If positive,
             # that's a good indication the deployment is complete
             print(f"Deployment {deploy_id} in process: {deploy_resp['state']}")
-            time.sleep(5)
+            time.sleep(10)
             deploy_resp = self.req(f"{url}/{deploy_id}")
             deploy_end = deploy_resp["endTime"]
 
