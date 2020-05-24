@@ -7,6 +7,7 @@ Check out the API explorer at "https://<ftd_host>/#/api-explorer"
 """
 
 import json
+import time
 import requests
 
 
@@ -19,6 +20,7 @@ URL_MAP = {
     "protocolobject": "object/protocols",
     "portobjectgroup": "object/portgroups",
 }
+
 
 class CiscoFTD:
     """
@@ -65,7 +67,7 @@ class CiscoFTD:
         # Returns the first access policy configured on the device. FTD
         # only supports a single access policy (cannot create via API).
         # Store this ID for long-term use; benefits of stateful design
-        self.policy_id = self.req("policy/accesspolicies")["items"][0]
+        self.policy_id = self.req("policy/accesspolicies")["items"][0]["id"]
 
     #
     # General management methods/utilities
@@ -150,9 +152,9 @@ class CiscoFTD:
         print(f"Added {resp['type']} named {resp['name']} with ID {resp['id']}")
         return resp
 
-    def deploy_group(self, group_dict):
+    def add_group(self, group_dict):
         """
-        Given a complete object group, deploy all objects in the group and
+        Given a complete object group, create all objects in the group and
         the group itself, along with all proper group memberships.
         """
 
@@ -173,14 +175,14 @@ class CiscoFTD:
         # Return the group response which will contain all UUIDs
         return group_resp
 
-    def deploy_group_file(self, filename):
+    def add_group_file(self, filename):
         """
-        Simplifies deploying new object groups by reading in the HTTP body
-        from JSON files. See "deploy_group" for logic.
+        Simplifies adding new object groups by reading in the HTTP body
+        from JSON files. See "add_group" for logic.
         """
         with open(filename, "r") as handle:
             group_dict = json.load(handle)
-        return self.deploy_group(group_dict)
+        return self.add_group(group_dict)
 
     def purge_group_name(self, name, group_type):
         """
@@ -380,8 +382,43 @@ class CiscoFTD:
         return resp
 
     #
-    # Policy deployment and history
-    # TODO
+    # Policy deployment
+    #
+
+    def deploy_changes(self):
+        """
+        Deploys changed to the device (operationalizes the policy
+        updates so they take effect). Returns the final response
+        from the last "get" action that checks the status as
+        this method waits until the deployment is complete (synchronous).
+        """
+
+        # Issue a POST request with no body to begin deployment
+        url = "operational/deploy"
+        deploy_resp = self.req(url, method="post")
+
+        # Extract the deploymnt ID and current end time. The
+        # end time will be -1 until the process completes. Could
+        # also use "state" but I cannot find a definitive list
+        # of all states, so this is harder to use
+        deploy_id = deploy_resp["id"]
+        deploy_end = deploy_resp["endTime"]
+
+        # While the end time remains negative, the deployment has
+        # not completed; keep looping
+        while deploy_end < 0:
+
+            # After a short wait, query the specific deployment
+            # by ID and store the end time again. If positive,
+            # that's a good indication the deployment is complete
+            print(f"Deployment {deploy_id} in process: {deploy_resp['state']}")
+            time.sleep(5)
+            deploy_resp = self.req(f"{url}/{deploy_id}")
+            deploy_end = deploy_resp["endTime"]
+
+        # Deployment ended (success or failure); return the final state
+        print(f"Deployment {deploy_id} complete: {deploy_resp['state']}")
+        return deploy_end
 
 
 def main():

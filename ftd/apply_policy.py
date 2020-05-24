@@ -33,9 +33,9 @@ def main():
     cleanup(ftd)
 
     # Create VPN network, IPsec port/protocol, and blacklist network groups
-    vpn_resp = ftd.deploy_group_file("policy/group_vpn.json")
-    ipsec_resp = ftd.deploy_group_file("policy/group_ipsec.json")
-    blacklist_resp = ftd.deploy_group_file("policy/group_blacklist.json")
+    vpn_resp = ftd.add_group_file("objects/group_vpn.json")
+    ipsec_resp = ftd.add_group_file("objects/group_ipsec.json")
+    blacklist_resp = ftd.add_group_file("objects/group_blacklist.json")
 
     # Get the security zones, which exist by default
     inside_zone = ftd.get_security_zones("inside_zone")["items"][0]
@@ -81,7 +81,8 @@ def main():
     # Delete the default rule; comes with the sandbox and is unnecessary
     ftd.delete_access_rule_name("Inside_Outside_Rule")
 
-    # TODO deployment
+    # Deploy the configuration changes
+    ftd.deploy_changes()
 
 
 if __name__ == "__main__":
