@@ -132,8 +132,8 @@ class CiscoFTD:
         )
 
         # Optional debugging to view the response body if it exists
-        if resp.text:
-            print(json.dumps(resp.json(), indent=2))
+        # if resp.text:
+        #     print(json.dumps(resp.json(), indent=2))
 
         # Ensure the request succeeded
         resp.raise_for_status()
