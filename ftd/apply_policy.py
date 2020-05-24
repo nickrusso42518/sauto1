@@ -2,16 +2,20 @@
 
 """
 Author: Nick Russo
-Purpose: Applies the polic described in the "policy_objects" files.
+Purpose: Applies the policy described in the "policy_objects" files.
 Check out the API explorer at "https://<ftd_host>/#/api-explorer"
 """
 
 from cisco_ftd import CiscoFTD
 
 
-def cleanup(ftd, policy_id):
-    ftd.delete_access_rule_name(policy_id, "IN_TO_OUT_BLACKLIST")
-    ftd.delete_access_rule_name(policy_id, "OUT_TO_IN_VPN")
+def cleanup(ftd):
+    """
+    Quick cleanup function to make "starting over" easier. Also
+    exercises many of the HTTP DELETE requests in the SDK.
+    """
+    ftd.delete_access_rule_name("IN_TO_OUT_BLACKLIST")
+    ftd.delete_access_rule_name("OUT_TO_IN_VPN")
     ftd.purge_group_name("NETG_VPN_CONCENTRATORS", "networkobjectgroup")
     ftd.purge_group_name("NETG_BLACKLIST", "networkobjectgroup")
     ftd.purge_group_name("PORTG_IPSEC", "portobjectgroup")
@@ -25,11 +29,8 @@ def main():
     # Create a new FTD object referencing the DevNet sandbox (default)
     ftd = CiscoFTD()
 
-    # There is only one policy; collect it once and store the ID
-    policy_id = ftd.get_access_policy()["id"]
-
     # Optional cleanup tasks; useful for testing to save time
-    cleanup(ftd, policy_id)
+    cleanup(ftd)
 
     # Create VPN network, IPsec port/protocol, and blacklist network groups
     vpn_resp = ftd.deploy_group_file("policy/group_vpn.json")
@@ -42,7 +43,6 @@ def main():
 
     # Permit VPN sessions to headends from outside to inside
     vpn_rule = ftd.add_access_rule(
-        policy_id=policy_id,
         rule_name="OUT_TO_IN_VPN",
         rule_action="PERMIT",
         rule_position=10,
@@ -54,7 +54,6 @@ def main():
 
     # Deny traffic to documentation prefixes from inside to outside
     blacklist_rule = ftd.add_access_rule(
-        policy_id=policy_id,
         rule_name="IN_TO_OUT_BLACKLIST",
         rule_action="DENY",
         rule_position=20,
@@ -76,11 +75,11 @@ def main():
 
     # Update the VPN rule with the IPS policy for additional security
     ips_update = ftd.update_access_rule(
-        policy_id=policy_id, rule_id=vpn_rule["id"], intrusionPolicy=ips
+        rule_id=vpn_rule["id"], intrusionPolicy=ips
     )
 
     # Delete the default rule; comes with the sandbox and is unnecessary
-    ftd.delete_access_rule_name(policy_id, "Inside_Outside_Rule")
+    ftd.delete_access_rule_name("Inside_Outside_Rule")
 
     # TODO deployment
 
