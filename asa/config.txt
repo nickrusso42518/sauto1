@@ -1,0 +1,48 @@
+object network NET_TEST_1
+ subnet 192.0.2.0 255.255.255.0
+ description See RFC-5737 section 3
+object network NET_TEST_2
+ subnet 198.51.100.0 255.255.255.0
+ description See RFC-5737 section 3
+object network NET_TEST_3
+ subnet 203.0.113.0 255.255.255.0
+ description See RFC-5737 section 3
+object network NET_VPN_EAST
+ host 192.168.5.10
+ description VPN concentrator in Baltimore
+object network NET_VPN_WEST
+ host 192.168.6.10
+ description VPN concentrator in Seattle
+
+object service UDP_IKE
+ service udp destination eq isakmp
+ description Internet Key Exchange for IPsec VPNs
+object service UDP_IPSEC_NATT
+ service udp destination eq 4500
+ description ESP encapsulated in UDP for NAT Traversal IPsec
+object service PROTO_ESP
+ service esp
+ description Encapsulating Security Payload for IPsec VPNs
+
+object-group network NETG_BLACKLIST
+ description in-to-out blacklist
+ network-object object NET_TEST_1
+ network-object object NET_TEST_2
+ network-object object NET_TEST_3
+object-group network NETG_VPN_CONCENTRATORS
+ description All VPN concentrators
+ network-object object NET_VPN_EAST
+ network-object object NET_VPN_WEST
+
+object-group service PORTG_IPSEC
+ description All IPsec related ports and protocols
+ service-object object UDP_IKE
+ service-object object UDP_IPSEC_NATT
+ service-object object PROTO_ESP
+
+access-list IN_TO_OUT_BLACKLIST extended deny ip any object-group NETG_BLACKLIST
+access-list IN_TO_OUT_BLACKLIST extended permit ip any any
+access-list OUT_TO_IN_VPN extended permit object-group PORTG_IPSEC any object-group NETG_VPN_CONCENTRATORS
+
+access-group IN_TO_OUT_BLACKLIST in interface inside
+access-group OUT_TO_IN_VPN in interface outside

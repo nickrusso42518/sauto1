@@ -1,0 +1,7 @@
+---
+- name: "PLAY 1: Apply security policy"
+  hosts: "perimeter_asav"
+  tasks:
+    - name: "TASK 1: Render jinja2 template and push to devices"
+      asa_config:
+        src: "templates/policy.j2"
