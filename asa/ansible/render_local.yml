@@ -7,3 +7,4 @@
         src: "templates/policy.j2"
         dest: "{{ playbook_dir }}/{{ inventory_hostname }}.txt"
       delegate_to: "localhost"
+...

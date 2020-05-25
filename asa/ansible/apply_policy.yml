@@ -5,3 +5,13 @@
     - name: "TASK 1: Render jinja2 template and push to devices"
       asa_config:
         src: "templates/policy.j2"
+        save: true
+      notify: "policy_applied"
+      register: "asa_updates"
+
+  handlers:
+    - name: "HANDLER 1: Display config changes when changes occur"
+      listen: "policy_applied"
+      debug:
+        var: "asa_updates['updates']"  # or "asa_updates.updates"
+...
