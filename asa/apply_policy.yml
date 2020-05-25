@@ -8,6 +8,7 @@
         save: true
       notify: "policy_applied"
       register: "asa_updates"
+      changed_when: "asa_updates['updates'] is defined"
 
   handlers:
     - name: "HANDLER 1: Display config changes when changes occur"
