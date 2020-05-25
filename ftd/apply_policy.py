@@ -9,18 +9,6 @@ Check out the API explorer at "https://<ftd_host>/#/api-explorer"
 from cisco_ftd import CiscoFTD
 
 
-def cleanup(ftd):
-    """
-    Quick cleanup function to make "starting over" easier. Also
-    exercises many of the HTTP DELETE requests in the SDK.
-    """
-    ftd.delete_access_rule_name("IN_TO_OUT_BLACKLIST")
-    ftd.delete_access_rule_name("OUT_TO_IN_VPN")
-    ftd.purge_group_name("NETG_VPN_CONCENTRATORS", "networkobjectgroup")
-    ftd.purge_group_name("NETG_BLACKLIST", "networkobjectgroup")
-    ftd.purge_group_name("PORTG_IPSEC", "portobjectgroup")
-
-
 def main():
     """
     Execution begins here.
@@ -78,11 +66,33 @@ def main():
         rule_id=vpn_rule["id"], intrusionPolicy=ips
     )
 
-    # Delete the default rule; comes with the sandbox and is unnecessary
+    # Delete the default rule; comes with the sandbox (don't trust it)
     ftd.delete_access_rule_name("Inside_Outside_Rule")
+
+    # Add in a general "permit any" from inside to outside zones by default
+    default_rule = ftd.add_access_rule(
+        rule_name="IN_TO_OUT_GENERAL",
+        rule_action="PERMIT",
+        rule_position=30,
+        sourceZones=[inside_zone],
+        destinationZones=[outside_zone],
+    )
 
     # Deploy the configuration changes
     ftd.deploy_changes()
+
+
+def cleanup(ftd):
+    """
+    Quick cleanup function to make "starting over" easier. Also
+    exercises many of the HTTP DELETE requests in the SDK.
+    """
+    ftd.delete_access_rule_name("IN_TO_OUT_BLACKLIST")
+    ftd.delete_access_rule_name("OUT_TO_IN_VPN")
+    ftd.delete_access_rule_name("IN_TO_OUT_GENERAL")
+    ftd.purge_group_name("NETG_VPN_CONCENTRATORS", "networkobjectgroup")
+    ftd.purge_group_name("NETG_BLACKLIST", "networkobjectgroup")
+    ftd.purge_group_name("PORTG_IPSEC", "portobjectgroup")
 
 
 if __name__ == "__main__":

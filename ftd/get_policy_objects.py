@@ -6,7 +6,6 @@ Purpose: Gets the current policy objects from the FTD sandbox.
 Check out the API explorer at "https://<ftd_host>/#/api-explorer"
 """
 
-import requests
 from cisco_ftd import CiscoFTD
 
 
