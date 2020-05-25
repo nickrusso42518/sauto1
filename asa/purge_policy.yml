@@ -10,6 +10,6 @@
           - "clear configure object-group"
           - "clear configure object"
         match: "none"
-        save: true
+        save: false
       changed_when: false
 ...
