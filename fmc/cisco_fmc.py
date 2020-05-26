@@ -3,7 +3,7 @@
 """
 Author: Nick Russo
 Purpose: Python client SDK for Cisco FMC.
-Check out the API explorer at "https://<ftd_host>/#/api-explorer"
+Check out the API explorer at "https://<fmc_host>/api/api-explorer"
 """
 
 import json
