@@ -17,23 +17,20 @@ def main():
     # Create a new FMC object referencing the DevNet sandbox (default)
     fmc = CiscoFMC.build_from_env_vars()
 
-    # Optional cleanup tasks; useful for testing to save time
-    cleanup(fmc)
-
-    # import pdb; pdb.set_trace()
-
     # Create VPN network, IPsec port/protocol, and blacklist network groups
     vpn_resp = fmc.add_group_file("objects/group_vpn.json")
-    fmc.purge_group_id(vpn_resp["id"], "NetworkGroup")
-
     blacklist_resp = fmc.add_group_file("objects/group_blacklist.json")
-    fmc.purge_group_id(blacklist_resp["id"], "NetworkGroup")
-
     ipsec_resp = fmc.add_group_file("objects/group_ipsec.json")
-    fmc.purge_group_id(ipsec_resp["id"], "PortObjectGroup")
 
-def cleanup(fmc):
-    pass
+    # Cannot filter by name in FMC, so use an interactive technique
+    cleanup_after = input("Undo everything? (y/n): ")
+    if cleanup_after.lower().strip() == "y":
+        # fmc.authenticate("generatetoken")
+        # TODO delete policies first
+        fmc.purge_group_id(vpn_resp["id"], "NetworkGroup")
+        fmc.purge_group_id(blacklist_resp["id"], "NetworkGroup")
+        fmc.purge_group_id(ipsec_resp["id"], "PortObjectGroup")
+
 
 if __name__ == "__main__":
     main()
