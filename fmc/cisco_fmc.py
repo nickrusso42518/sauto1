@@ -14,8 +14,10 @@ import requests
 
 # Maps the type of an object to the API resource string
 URL_MAP = {
-    "networkobject": "object/networks",
-    "networkobjectgroup": "object/networkgroups",
+    "Host": "object/hosts",
+    "Network": "object/networks",
+    "NetworkGroup": "object/networkgroups",
+    # TODO below
     "tcpportobject": "object/tcpports",
     "udpportobject": "object/udpports",
     "protocolobject": "object/protocols",
@@ -153,8 +155,8 @@ class CiscoFMC:
         )
 
         # Optional debugging to view the response body if it exists
-        # if resp.text:
-        #     print(json.dumps(resp.json(), indent=2))
+        if resp.text:
+            print(json.dumps(resp.json(), indent=2))
 
         # Ensure the request succeeded
         resp.raise_for_status()
@@ -187,16 +189,16 @@ class CiscoFMC:
         """
 
         # Cannot create empty groups, so build objects individually first
-        created_objects = []
         for obj_body in group_dict["objects"]:
             obj_url = URL_MAP[obj_body["type"]]
             obj_resp = self.add_object(obj_url, obj_body)
 
-            # Add the response to a list to replace the group "objects"
-            created_objects.append(obj_resp)
+            # Add a new "id" key with the ID returned and
+            # remove "value" key if it exists (it always should)
+            obj_body["id"] = obj_resp["id"]
+            obj_body.pop("value", None)
 
         # All objects built; update the group's "objects" key
-        group_dict["objects"] = created_objects
         group_url = URL_MAP[group_dict["type"]]
         group_resp = self.add_object(group_url, group_dict)
 
