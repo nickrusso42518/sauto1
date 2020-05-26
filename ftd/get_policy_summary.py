@@ -2,7 +2,7 @@
 
 """
 Author: Nick Russo
-Purpose: Gets the current policy objects from the FTD sandbox.
+Purpose: Gets the current policy summary from the FTD sandbox.
 Check out the API explorer at "https://<ftd_host>/#/api-explorer"
 """
 
@@ -17,7 +17,8 @@ def main():
     # Create a new FTD object referencing the DevNet sandbox (default)
     ftd = CiscoFTD()
 
-    # Issue a GET request to collect a list of network objects configured
+    # TODO is this needed?
+    # Issue a GET request to collect a list of access policies configured
     # on the FTD device. Raise HTTPErrors if the request fails
     ap_resp = ftd.req("policy/accesspolicies")
 

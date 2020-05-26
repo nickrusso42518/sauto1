@@ -15,11 +15,12 @@ def main():
     """
 
     # Create a new FMC object referencing the DevNet sandbox (default)
-    fmc = CiscoFMC()
+    fmc = CiscoFMC("njrusmc", "PLbFM3gq")
 
-    # Issue a GET request to collect a list of network objects configured
-    # on the FMC device. Raise HTTPErrors if the request fails
-    ap_resp = fmc.req("policy/accesspolicies")
+    # Issue a GET request to collect a subset of access policies (just one
+    # for now on the FMC device. Raise HTTPErrors if the request fails
+    ap_url = "policy/accesspolicies"
+    ap_resp = fmc.req(ap_url, params={"name": "AccePolicy-Test123"})
 
     # Each rule has at least these 6 lists for src/dest zones,
     # networks, and ports. Identify the REST resources here
@@ -34,23 +35,22 @@ def main():
 
     # Iterate over all of the access policies (typically only one)
     for policy in ap_resp["items"]:
-        print(f"Policy name: {policy['name']}")
 
         # Get the rules within the policy by UUID
-        rule_resp = fmc.req(f"policy/accesspolicies/{policy['id']}/accessrules")
+        rules_resp = fmc.req(f"{ap_url}/{policy['id']}/accessrules")
 
         # Iterate over the rules defined in the policy
-        for rule in rule_resp["items"]:
-            print(f"  Rule name: {rule['name']} -> {rule['ruleAction']}")
+        for rule in rules_resp["items"]:
+            rule_resp = fmc.req(f"{ap_url}/{policy['id']}/accessrules/{rule['id']}")
+            print(f"  Rule name: {rule['name']} -> {rule_resp['action']}")
 
-            # Print source/destination components, one line each
+            # Print source/destination components, one line each. Unlike
+            # FTD, the FMC doesn't have empty list values for each key
             for comp in components:
-                names = [item["name"] for item in rule[comp]]
-
-                # Only print the data if it exists; ignore empty lists
-                if names:
+                present_comps = rule_resp.get(comp)
+                if present_comps:
+                    names = [item["name"] for item in present_comps["objects"]]
                     print(f"    {comp}: {','.join(names)}")
-
 
 if __name__ == "__main__":
     main()
