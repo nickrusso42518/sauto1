@@ -17,11 +17,8 @@ URL_MAP = {
     "Host": "object/hosts",
     "Network": "object/networks",
     "NetworkGroup": "object/networkgroups",
-    # TODO below
-    "tcpportobject": "object/tcpports",
-    "udpportobject": "object/udpports",
-    "protocolobject": "object/protocols",
-    "portobjectgroup": "object/portgroups",
+    "ProtocolPortObject": "object/protocolportobjects",
+    "PortObjectGroup": "object/portobjectgroups",
 }
 
 

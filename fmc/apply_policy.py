@@ -29,6 +29,8 @@ def main():
     blacklist_resp = fmc.add_group_file("objects/group_blacklist.json")
     fmc.purge_group_id(blacklist_resp["id"], "NetworkGroup")
 
+    ipsec_resp = fmc.add_group_file("objects/group_ipsec.json")
+    fmc.purge_group_id(ipsec_resp["id"], "PortObjectGroup")
 
 def cleanup(fmc):
     pass
