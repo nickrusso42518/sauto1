@@ -6,6 +6,7 @@ Purpose: Python client SDK for Cisco FMC.
 Check out the API explorer at "https://<fmc_host>/api/api-explorer"
 """
 
+import os
 import json
 import time
 import requests
@@ -61,6 +62,30 @@ class CiscoFMC:
     #
     # General management methods/utilities
     #
+
+    @staticmethod
+    def build_from_env_vars():
+        """
+        Static class-level helper method to quickly create a new CiscoFMC
+        object using environment variables:
+          1. FMC_USERNAME: Your personal username for FMC
+          2. FMC_PASSWORD: Your personal password for FMC
+        """
+
+        # Collect username and password (required) from env vars
+        username = os.environ.get("FMC_USERNAME")
+        if not username:
+            raise ValueError("Must define FMC_USERNAME environment var")
+
+        password = os.environ.get("FMC_PASSWORD")
+        if not password:
+            raise ValueError("Must define FMC_PASSWORD environment var")
+
+        # Specifying the host is optional; defaults to DevNet sandbox
+        host = os.environ.get("FMC_HOST", "fmcrestapisandbox.cisco.com")
+
+        # Create and return new CiscoFMC object
+        return CiscoFMC(username=username, password=password, host=host)
 
     def reauthenticate(self):
         """
@@ -425,7 +450,7 @@ def main():
     """
 
     # Create a new FMC object, which performs initial auth; show the tokens
-    fmc = CiscoFMC("njrusmc", "PLbFM3gq")
+    fmc = CiscoFMC.build_from_env_vars()
     print(fmc.headers["X-auth-access-token"])
     print(fmc.headers["X-auth-refresh-token"])
 

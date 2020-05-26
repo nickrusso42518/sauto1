@@ -15,7 +15,7 @@ def main():
     """
 
     # Create a new FMC object referencing the DevNet sandbox (default)
-    fmc = CiscoFMC("njrusmc", "PLbFM3gq")
+    fmc = CiscoFMC.build_from_env_vars()
 
     # Issue a GET request to collect a subset of access policies (just one
     # for now on the FMC device. Raise HTTPErrors if the request fails

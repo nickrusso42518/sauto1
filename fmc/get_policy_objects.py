@@ -15,7 +15,7 @@ def main():
     """
 
     # Create a new FMC object referencing the DevNet sandbox (default)
-    fmc = CiscoFMC("njrusmc", "PLbFM3gq")
+    fmc = CiscoFMC.build_from_env_vars()
 
     # List of resources to query; basically, network and port/protocol objects
     # The second item in the tuple is the "value of interest" which may even
