@@ -152,8 +152,8 @@ class CiscoFMC:
         )
 
         # Optional debugging to view the response body if it exists
-        if resp.text:
-            print(json.dumps(resp.json(), indent=2))
+        # if resp.text:
+        #    print(json.dumps(resp.json(), indent=2))
 
         # Ensure the request succeeded
         resp.raise_for_status()
@@ -254,90 +254,83 @@ class CiscoFMC:
             )
 
     #
-    # Policy rule management (full CRUD)
+    # Policy rule management
     #
 
-    def get_access_rules(self, name=None):
+    def add_access_policy(self, name, description="na", default_action="BLOCK"):
         """
-        Collects currently configured access rules. Specify an optional name
-        to filter for a specific rule if desired.
+        Creates a new access policy given a set of core parameters. The
+        "default_action" defaults to "BLOCK" but can also be "TRUST".
         """
 
-        # If name is defined, assemble a query params dict
-        if name:
-            params = {"filter": f"fts:{name}"}
-        else:
-            params = None
+        # Create the HTTP body
+        policy = {
+            "name": name,
+            "description": description,
+            "defaultAction": {
+                "type": "AccessPolicyDefaultAction",
+                "action": default_action
+            }
+        }
+
+        # Issue an HTTP POST request to create a new access policy
         resp = self.req(
-            f"policy/accesspolicies/{self.policy_id}/accessrules", params=params
+            "policy/accesspolicies",
+            method="post",
+            json=policy,
         )
+        print(f"Added accesspolicy named {name} with ID {resp['id']}")
         return resp
 
-    def add_access_rule(self, rule_name, rule_action, rule_position, **kwargs):
+    def add_access_rule(self, name, action, policy_id, **kwargs):
         """
         Creates a new access rule given a set of core parameters and
-        a variety of optional kwargs which map to rule options.
+        a variety of optional kwargs which map to rule options. This
+        method will strip down full object dictionaries that come from
+        other responses to include only the fields that FMC needs.
         """
 
         # Create the body based on positional and keyword arguments
         rule = {
-            "name": rule_name,
-            "ruleAction": rule_action,
-            "rulePosition": rule_position,
-            "type": "accessrule",
+            "name": name,
+            "enabled": True,
+            "action": action,
+            "type": "AccessRule",
         }
-        rule.update(kwargs)
+
+        # FMC appears to only accept name, id and type keys; cannot add
+        # entire kwarg response dictionaries to the HTTP body
+        for key, value in kwargs.items():
+
+            # Create a new list for each kwarg to contain the stripped objects
+            new_obj_list = []
+            for obj in value["objects"]:
+
+                # Add a new stripped object to the list
+                new_obj_list.append({"name": obj["name"], "type": obj["type"], "id": obj["id"]})
+
+            # Stripped objects completed; update the rule at the proper key
+            rule[key] = {"objects": new_obj_list}
 
         # Issue a POST request to add the access rule and return the reponse
         resp = self.req(
-            f"policy/accesspolicies/{self.policy_id}/accessrules",
+            f"policy/accesspolicies/{policy_id}/accessrules",
             method="post",
             json=rule,
         )
-        print(f"Added accessrule named {rule_name} with ID {resp['id']}")
+        print(f"Added accessrule named {name} with ID {resp['id']}")
         return resp
 
-    def update_access_rule(self, rule_id, **kwargs):
+    def delete_access_policy(self, policy_id):
         """
-        Updates an existing access rule given the rule's ID and
-        a variety of optional kwargs which map to rule options.
-        """
-
-        # Assemble the URL and issue a GET request to get the rule details
-        url = f"policy/accesspolicies/{self.policy_id}/accessrules/{rule_id}"
-        rule = self.req(url)
-
-        # Update the rule response with new kwargs, overwriting duplicates
-        rule.update(kwargs)
-
-        # Issue a POST request to update the access rule and return the reponse
-        resp = self.req(url, method="put", json=rule)
-        return resp
-
-    def delete_access_rule_name(self, name):
-        """
-        Simplifies deleting access rules by allowing a name to be specified.
-        See "delete_access_rule_id" for logic.
-        """
-        resp = self.get_access_rules(name)
-
-        # Presumably, only one item will be returned (can add more checks)
-        if len(resp["items"]) == 1:
-            rule_id = resp["items"][0]["id"]
-            print(f"Found accessrule named {name} with ID {rule_id}")
-            return self.delete_access_rule_id(rule_id)
-
-        return None
-
-    def delete_access_rule_id(self, rule_id):
-        """
-        Deletes an existing access rule by ID and returns the response.
+        Deletes an existing access policy by ID and returns the response.
+        This also deletes all access rules within the access policy.
         """
         resp = self.req(
-            f"policy/accesspolicies/{self.policy_id}/accessrules/{rule_id}",
+            f"policy/accesspolicies/{policy_id}",
             method="delete",
         )
-        print(f"Deleted accessrule with ID {rule_id}")
+        print(f"Deleted accesspolicy with ID {policy_id}")
         return resp
 
     def get_security_zones(self, name=None):
@@ -346,12 +339,15 @@ class CiscoFMC:
         If name is not specified, all zones are returned
         """
 
-        # If name is defined, assemble a query params dict
-        if name:
-            params = {"filter": f"name:{name}"}
-        else:
-            params = None
+        # The "expanded" query param reveals the entire object
+        # when collecting a list; can reduce follow-on requests
+        params = {"expanded": True}
 
+        # If name is defined, add a "name" key to search for a specific item
+        if name:
+            params["name"] = name
+
+        # Issue an HTTP GET request to collect the security zone(s)
         resp = self.req("object/securityzones", params=params)
         return resp
 
