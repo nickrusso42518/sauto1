@@ -162,6 +162,14 @@ class CiscoFMC:
 
         return {}
 
+    def _clean(self, obj):
+        """
+        FMC often requires stripped down object dictionaries to only include
+        the name, type, and id keys. Additional keys may cause requests to fail.
+        Returns a new dictionary that copies only these three kv pairs.
+        """
+        return {"name": obj["name"], "type": obj["type"], "id": obj["id"]}
+
     #
     # Policy object management
     #
@@ -303,24 +311,14 @@ class CiscoFMC:
                 for obj in value["objects"]:
 
                     # Add a new stripped object to the list
-                    new_obj_list.append(
-                        {
-                            "name": obj["name"],
-                            "type": obj["type"],
-                            "id": obj["id"],
-                        }
-                    )
+                    new_obj_list.append(self._clean(obj))
 
                 # Stripped objects completed; update the rule at the proper key
                 rule[key] = {"objects": new_obj_list}
 
             # There is no "objects" key; just strip the existing dictionary
             else:
-                rule[key] = {
-                    "name": value["name"],
-                    "type": value["type"],
-                    "id": value["id"],
-                }
+                rule[key] = self._clean(value)
 
         # Issue a POST request to add the access rule and return the reponse
         resp = self.req(
@@ -384,72 +382,59 @@ class CiscoFMC:
         # Name was not specified or not found; return all IPS policies
         return resp
 
-    def activate_threat_license(self):
+    #
+    # Policy assignment
+    #
+
+    def get_device_groups(self, name=None):
         """
-        IPS policy application in FTD requires the THREAT license.
-        This method idempotently activates the threat license.
+        Returns the current device groups with an optional name filter.
+        If name is not specified, all device groups are returned.
         """
 
-        # Get the list of current licenses
-        lics = self.req("license/smartlicenses")
+        # Issue an HTTP GET request to collect the device groups
+        resp = self.req("devicegroups/devicegrouprecords")
 
-        # Check all licenses to see if THREAT is activated. If so,
-        # return that license
-        for lic in lics["items"]:
-            if lic["licenseType"].lower() == "threat":
-                return lic
+        # Name filtering is not supported, so iterate through the items and
+        # check each one for a match. If there is a match, update the "items"
+        # key to contain a list of one value for consistency
+        if name:
+            for obj in resp["items"]:
+                if obj["name"].lower() == name.lower():
+                    resp["items"] = [obj]
+                    break
 
-        # Threat license not activated, activate it by defining
-        # the HTTP body below
-        body = {
-            "compliant": True,
-            "count": 1,
-            "licenseType": "THREAT",
-            "type": "license",
-        }
-
-        # Issue an HTTP POST request to activate the license
-        resp = self.req("license/smartlicenses", method="post", json=body)
+        # Name was not specified or not found; return all IPS policies
         return resp
 
-    #
-    # Policy deployment
-    #
-
-    def deploy_changes(self):
+    def assign_group_to_policy(self, group, policy):
         """
-        Deploys changed to the device (operationalizes the policy
-        updates so they take effect). Returns the final response
-        from the last "get" action that checks the status as
-        this method waits until the deployment is complete (synchronous).
+        Assigns a device group to an access policy. Each parameter
+        represents the JSON body from GET/POST responses when groups/policies
+        are collected or created.
         """
 
-        # Issue a POST request with no body to begin deployment
-        url = "operational/deploy"
-        deploy_resp = self.req(url, method="post")
+        # Clean up both dictionarys by only extracting the name, type, and ID
+        group = self._clean(group)
+        policy = self._clean(policy)
 
-        # Extract the deploymnt ID and current end time. The
-        # end time will be -1 until the process completes. Could
-        # also use "state" but I cannot find a definitive list
-        # of all states, so this is harder to use
-        deploy_id = deploy_resp["id"]
-        deploy_end = deploy_resp["endTime"]
+        # Assemble the body, which specifies the policy and a list of groups
+        body = {
+            "name": policy["name"],
+            "type": "PolicyAssignment",
+            "policy": policy,
+            "targets": [group],
+        }
 
-        # While the end time remains negative, the deployment has
-        # not completed; keep looping
-        while deploy_end < 0:
-
-            # After a short wait, query the specific deployment
-            # by ID and store the end time again. If positive,
-            # that's a good indication the deployment is complete
-            print(f"Deployment {deploy_id} in process: {deploy_resp['state']}")
-            time.sleep(10)
-            deploy_resp = self.req(f"{url}/{deploy_id}")
-            deploy_end = deploy_resp["endTime"]
-
-        # Deployment ended (success or failure); return the final state
-        print(f"Deployment {deploy_id} complete: {deploy_resp['state']}")
-        return deploy_end
+        # Issue the HTTP POST request and return the response
+        resp = self.req(
+            "assignment/policyassignments", method="post", json=body
+        )
+        print(
+            f"Assigned policy {policy['name']} to "
+            f"group {group['name']} with ID {resp['id']}"
+        )
+        return resp
 
 
 def main():

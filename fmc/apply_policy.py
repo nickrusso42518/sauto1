@@ -69,25 +69,24 @@ def main():
         destinationZones={"objects": [outside_zone]},
     )
 
-    # TODO device groups and apply
+    # Get the default device group
+    default_group = fmc.get_device_groups(name="DefaultDeviceGroup")
 
-    # Cannot always filter by name in FMC, so use an interactive technique
-    cleanup_after = (
-        input(
-            "Purge with new Token, purge with Existing token, Retain (t/e/r): "
-        )
-        .lower()
-        .strip()
+    # Assign the new policy to the default device group
+    assign = fmc.assign_group_to_policy(
+        group=default_group["items"][0], policy=globo_policy
     )
 
-    if cleanup_after in ["t", "e"]:
+    # Cannot always filter by name in FMC, so use an interactive technique
+    cleanup = input("Purge items just added? (y/n): ").lower()
+
+    if cleanup == "y":
 
         # If you decide to let the program hang to manually explore, you'll
         # need a new token unless you have a separate username. Logging into
         # the web UI will invalidate the existing token, and generating a new
         # token here will log you out of the web UI
-        if cleanup_after == "t":
-            fmc.authenticate("generatetoken")
+        # fmc.authenticate("generatetoken")
 
         # Delete custom access policy; deletes all rules automatically
         fmc.delete_access_policy(policy_id)
