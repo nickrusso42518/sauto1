@@ -17,6 +17,9 @@ def main():
     # Create a new FMC object referencing the DevNet sandbox (default)
     fmc = CiscoFMC.build_from_env_vars()
 
+    # Collect the IPS policy first as we'll need it for the VPN rule
+    ips_resp = fmc.get_ips_policies(name="Balanced Security and Connectivity")
+
     # Create VPN network, IPsec port/protocol, and blacklist network groups
     vpn_resp = fmc.add_group_file("objects/group_vpn.json")
     blacklist_resp = fmc.add_group_file("objects/group_blacklist.json")
@@ -34,7 +37,8 @@ def main():
     policy_id = globo_policy["id"]
 
     # Permit VPN sessions to headends from outside to inside. Also
-    # include the IPS policy from the beginning
+    # include the IPS policy from the beginning by extracting the
+    # first (and only) item returned from the earlier API call
     vpn_rule = fmc.add_access_rule(
         name="OUT_TO_IN_VPN",
         action="ALLOW",
@@ -43,7 +47,7 @@ def main():
         destinationZones={"objects": [inside_zone]},
         destinationNetworks={"objects": [vpn_resp]},
         destinationPorts={"objects": [ipsec_resp]},
-        # TODO add IPS policy
+        ipsPolicy=ips_resp["items"][0],
     )
 
     # Deny traffic to documentation prefixes from inside to outside
@@ -65,10 +69,16 @@ def main():
         destinationZones={"objects": [outside_zone]},
     )
 
+    # TODO device groups and apply
+
     # Cannot always filter by name in FMC, so use an interactive technique
-    cleanup_after = input(
-        "Purge with new Token, purge with Existing token, Retain (t/e/r): "
-    ).lower().strip()
+    cleanup_after = (
+        input(
+            "Purge with new Token, purge with Existing token, Retain (t/e/r): "
+        )
+        .lower()
+        .strip()
+    )
 
     if cleanup_after in ["t", "e"]:
 

@@ -112,9 +112,7 @@ class CiscoFMC:
             )
         elif grant_type == "refreshtoken":
             token_resp = self.sess.post(
-                auth_url,
-                headers=self.headers,
-                verify=self.verify,
+                auth_url, headers=self.headers, verify=self.verify
             )
         token_resp.raise_for_status()
 
@@ -269,16 +267,12 @@ class CiscoFMC:
             "description": description,
             "defaultAction": {
                 "type": "AccessPolicyDefaultAction",
-                "action": default_action
-            }
+                "action": default_action,
+            },
         }
 
         # Issue an HTTP POST request to create a new access policy
-        resp = self.req(
-            "policy/accesspolicies",
-            method="post",
-            json=policy,
-        )
+        resp = self.req("policy/accesspolicies", method="post", json=policy)
         print(f"Added accesspolicy named {name} with ID {resp['id']}")
         return resp
 
@@ -302,15 +296,31 @@ class CiscoFMC:
         # entire kwarg response dictionaries to the HTTP body
         for key, value in kwargs.items():
 
-            # Create a new list for each kwarg to contain the stripped objects
-            new_obj_list = []
-            for obj in value["objects"]:
+            # If there is an "objects" key
+            if value.get("objects"):
+                # Create a new list for each kwarg to contain the stripped objects
+                new_obj_list = []
+                for obj in value["objects"]:
 
-                # Add a new stripped object to the list
-                new_obj_list.append({"name": obj["name"], "type": obj["type"], "id": obj["id"]})
+                    # Add a new stripped object to the list
+                    new_obj_list.append(
+                        {
+                            "name": obj["name"],
+                            "type": obj["type"],
+                            "id": obj["id"],
+                        }
+                    )
 
-            # Stripped objects completed; update the rule at the proper key
-            rule[key] = {"objects": new_obj_list}
+                # Stripped objects completed; update the rule at the proper key
+                rule[key] = {"objects": new_obj_list}
+
+            # There is no "objects" key; just strip the existing dictionary
+            else:
+                rule[key] = {
+                    "name": value["name"],
+                    "type": value["type"],
+                    "id": value["id"],
+                }
 
         # Issue a POST request to add the access rule and return the reponse
         resp = self.req(
@@ -326,17 +336,14 @@ class CiscoFMC:
         Deletes an existing access policy by ID and returns the response.
         This also deletes all access rules within the access policy.
         """
-        resp = self.req(
-            f"policy/accesspolicies/{policy_id}",
-            method="delete",
-        )
+        resp = self.req(f"policy/accesspolicies/{policy_id}", method="delete")
         print(f"Deleted accesspolicy with ID {policy_id}")
         return resp
 
     def get_security_zones(self, name=None):
         """
         Returns the current security zones with an optional name filter.
-        If name is not specified, all zones are returned
+        If name is not specified, all zones are returned.
         """
 
         # The "expanded" query param reveals the entire object
@@ -355,20 +362,26 @@ class CiscoFMC:
     # Intrusion Prevention System (IPS) policy management
     #
 
-    def get_ips_policy(self, name=None):
+    def get_ips_policies(self, name=None):
         """
-        Returns the list of IPS policies on the device. Specify an optional
-        "name" keyword argument to filter for a specific item.
+        Returns the current IPS policies with an optional name filter.
+        If name is not specified, all IPS policies are returned.
         """
 
-        # If name is defined, assemble a query params dict
+        # Issue an HTTP GET request to collect the IPS policies
+        # using a larger "limit" to improve chances of finding the policy
+        resp = self.req("policy/intrusionpolicies", params={"limit": 100})
+
+        # Name filtering is not supported, so iterate through the items and
+        # check each one for a match. If there is a match, update the "items"
+        # key to contain a list of one value for consistency
         if name:
-            params = {"filter": f"name:{name}"}
-        else:
-            params = None
+            for obj in resp["items"]:
+                if obj["name"].lower() == name.lower():
+                    resp["items"] = [obj]
+                    break
 
-        # Issue a GET request and return the result
-        resp = self.req("policy/intrusionpolicies", params=params)
+        # Name was not specified or not found; return all IPS policies
         return resp
 
     def activate_threat_license(self):
