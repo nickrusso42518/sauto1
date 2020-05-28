@@ -41,7 +41,9 @@ def main():
 
         # Iterate over the rules defined in the policy
         for rule in rules_resp["items"]:
-            rule_resp = fmc.req(f"{ap_url}/{policy['id']}/accessrules/{rule['id']}")
+            rule_resp = fmc.req(
+                f"{ap_url}/{policy['id']}/accessrules/{rule['id']}"
+            )
             print(f"  Rule name: {rule['name']} -> {rule_resp['action']}")
 
             # Print source/destination components, one line each. Unlike
@@ -51,6 +53,7 @@ def main():
                 if present_comps:
                     names = [item["name"] for item in present_comps["objects"]]
                     print(f"    {comp}: {','.join(names)}")
+
 
 if __name__ == "__main__":
     main()

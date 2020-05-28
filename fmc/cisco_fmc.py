@@ -8,7 +8,6 @@ Check out the API explorer at "https://<fmc_host>/api/api-explorer"
 
 import os
 import json
-import time
 import requests
 
 
@@ -216,23 +215,6 @@ class CiscoFMC:
         with open(filename, "r") as handle:
             group_dict = json.load(handle)
         return self.add_group(group_dict)
-
-    def purge_group_name(self, name, group_type):
-        """
-        Simplifies purging existing object groups and all their contained
-        objects by specifying the group's name. See "purge_group_id"
-        for logic.
-        """
-        group_url = URL_MAP[group_type]
-        group = self.req(group_url, params={"filter": f"name:{name}"})
-
-        # Presumably, only one item will be returned (can add more checks)
-        if len(group["items"]) == 1:
-            group_id = group["items"][0]["id"]
-            print(f"Found {group_type} named {name} with ID {group_id}")
-            return self.purge_group_id(group_id, group_type)
-
-        return None
 
     def purge_group_id(self, group_id, group_type):
         """

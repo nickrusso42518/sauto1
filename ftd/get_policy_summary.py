@@ -17,9 +17,9 @@ def main():
     # Create a new FTD object referencing the DevNet sandbox (default)
     ftd = CiscoFTD()
 
-    # TODO is this needed?
     # Issue a GET request to collect a list of access policies configured
-    # on the FTD device. Raise HTTPErrors if the request fails
+    # on the FTD device. Raise HTTPErrors if the request fails. This is a
+    # bit redundant and could be optimized if the constructor changed
     ap_resp = ftd.req("policy/accesspolicies")
 
     # Each rule has at least these 6 lists for src/dest zones,

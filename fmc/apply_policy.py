@@ -86,7 +86,7 @@ def main():
         # need a new token unless you have a separate username. Logging into
         # the web UI will invalidate the existing token, and generating a new
         # token here will log you out of the web UI
-        # fmc.authenticate("generatetoken")
+        fmc.authenticate("generatetoken")
 
         # Delete custom access policy; deletes all rules automatically
         fmc.delete_access_policy(policy_id)
