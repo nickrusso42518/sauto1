@@ -73,12 +73,6 @@ class CiscoFTD:
     # General management methods/utilities
     #
 
-    def reauthenticate(self):
-        """
-        Uses the 'refresh_token' to reauthenticate the session to FTD.
-        """
-        self.authenticate("refresh_token")
-
     def authenticate(self, grant_type):
         """
         Perform authentication, either initial or refresh, and retain the new
@@ -113,6 +107,12 @@ class CiscoFTD:
 
         # Update the headers dictionary with the new access token
         self.headers["Authorization"] = f"Bearer {self.access_token}"
+
+    def reauthenticate(self):
+        """
+        Uses the 'refresh_token' to reauthenticate the session to FTD.
+        """
+        self.authenticate("refresh_token")
 
     def req(self, resource, method="get", **kwargs):
         """
@@ -430,12 +430,16 @@ def main():
 
     # Create a new FTD object, which performs initial auth; show the tokens
     ftd = CiscoFTD()
+    print("First access token")
     print(ftd.access_token)
+    print("First refresh token")
     print(ftd.refresh_token)
 
     # Reauthenticate using the refresh token; show the tokens
     ftd.reauthenticate()
+    print("Second access token")
     print(ftd.access_token)
+    print("Second refresh token")
     print(ftd.refresh_token)
 
 
