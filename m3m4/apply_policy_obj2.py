@@ -6,8 +6,7 @@ Purpose: Applies the policy described in the "policy_objects" files.
 Check out the API explorer at "https://<ftd_host>/#/api-explorer"
 """
 
-# from cisco_ftd import CiscoFTD
-from cisco_ftd_obj2 import CiscoFTD
+from cisco_ftd_obj2 import CiscoFTD  # change back
 
 
 def main():

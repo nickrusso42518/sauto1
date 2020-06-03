@@ -148,11 +148,13 @@ class CiscoFTD:
     # Policy object management
     #
 
-    def add_object(self, resource, obj_body):
+    def add_object(self, obj_body):
         """
-        Creates a new generic policy object given a resource URL string and
-        complete object body.
+        Creates a new generic policy object given a complete object body.
         """
+
+        # Get the proper resource URL given the obj_body type
+        resource = URL_MAP[obj_body["type"]]
 
         # Issue a POST request, print a status message, and return response
         resp = self.req(resource, method="post", json=obj_body)
@@ -168,16 +170,14 @@ class CiscoFTD:
         # Cannot create empty groups, so build objects individually first
         created_objects = []
         for obj_body in group_dict["objects"]:
-            obj_url = URL_MAP[obj_body["type"]]
-            obj_resp = self.add_object(obj_url, obj_body)
+            obj_resp = self.add_object(obj_body)
 
             # Add the response to a list to replace the group "objects"
             created_objects.append(obj_resp)
 
         # All objects built; update the group's "objects" key
         group_dict["objects"] = created_objects
-        group_url = URL_MAP[group_dict["type"]]
-        group_resp = self.add_object(group_url, group_dict)
+        group_resp = self.add_object(group_dict)
 
         # Return the group response which will contain all UUIDs
         return group_resp

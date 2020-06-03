@@ -21,10 +21,10 @@ def main():
     # The second item in the tuple is the "value of interest" which varies
     resource_list = [
         ("object/networks", "value"),
-        ("object/networkgroups", None),
         ("object/tcpports", "port"),
         ("object/udpports", "port"),
         ("object/protocols", "protocol"),
+        ("object/networkgroups", None),
         ("object/portgroups", None),
     ]
 
