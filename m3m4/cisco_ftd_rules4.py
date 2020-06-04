@@ -307,6 +307,7 @@ class CiscoFTD:
 
         # Issue a POST request to update the access rule and return the reponse
         resp = self.req(url, method="put", json=rule)
+        print(f"Updated accessrule named {rule['name']} with ID {rule_id}")
         return resp
 
     def delete_access_rule_name(self, name):
