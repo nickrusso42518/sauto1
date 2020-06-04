@@ -23,7 +23,8 @@ def main():
     ap_resp = ftd.req("policy/accesspolicies")
 
     # Each rule has at least these 6 lists for src/dest zones,
-    # networks, and ports. Identify the REST resources here
+    # networks, and ports. Can also include non-lists like IPS
+    # policy (add whatever else you like)
     components = [
         "sourceZones",
         "destinationZones",
@@ -31,6 +32,7 @@ def main():
         "destinationNetworks",
         "sourcePorts",
         "destinationPorts",
+        "intrusionPolicy",
     ]
 
     # Iterate over all of the access policies (typically only one)
@@ -46,11 +48,18 @@ def main():
 
             # Print source/destination components, one line each
             for comp in components:
-                names = [item["name"] for item in rule[comp]]
 
-                # Only print the data if it exists; ignore empty lists
-                if names:
-                    print(f"    {comp}: {','.join(names)}")
+                # If the component is a list, get all the item names
+                if isinstance(rule[comp], list):
+                    names = [item["name"] for item in rule[comp]]
+
+                    # Only print the data if it exists; ignore empty lists
+                    if names:
+                        print(f"    {comp}: {','.join(names)}")
+
+                # If the component is a dict, just print the item name
+                elif isinstance(rule[comp], dict):
+                    print(f"    {comp}: {rule[comp]['name']}")
 
 
 if __name__ == "__main__":
