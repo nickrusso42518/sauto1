@@ -93,8 +93,8 @@ class CiscoFMC:
 
     def authenticate(self, grant_type):
         """
-        Perform authentication, either "generatetoken" or "refreshtoken", and retain the new
-        tokens as attributes of the object.
+        Perform authentication, either "generatetoken" or "refreshtoken",
+        and retain the new tokens as attributes of the object.
         """
 
         # Construct the proper auth URL based on the grant type. Notice that
@@ -245,6 +245,24 @@ class CiscoFMC:
     # Policy rule management
     #
 
+    def get_security_zones(self, name=None):
+        """
+        Returns the current security zones with an optional name filter.
+        If name is not specified, all zones are returned.
+        """
+
+        # The "expanded" query param reveals the entire object
+        # when collecting a list; can reduce follow-on requests
+        params = {"expanded": True}
+
+        # If name is defined, add a "name" key to search for a specific item
+        if name:
+            params["name"] = name
+
+        # Issue an HTTP GET request to collect the security zone(s)
+        resp = self.req("object/securityzones", params=params)
+        return resp
+
     def add_access_policy(self, name, description="na", default_action="BLOCK"):
         """
         Creates a new access policy given a set of core parameters. The
@@ -318,24 +336,6 @@ class CiscoFMC:
         """
         resp = self.req(f"policy/accesspolicies/{policy_id}", method="delete")
         print(f"Deleted accesspolicy with ID {policy_id}")
-        return resp
-
-    def get_security_zones(self, name=None):
-        """
-        Returns the current security zones with an optional name filter.
-        If name is not specified, all zones are returned.
-        """
-
-        # The "expanded" query param reveals the entire object
-        # when collecting a list; can reduce follow-on requests
-        params = {"expanded": True}
-
-        # If name is defined, add a "name" key to search for a specific item
-        if name:
-            params["name"] = name
-
-        # Issue an HTTP GET request to collect the security zone(s)
-        resp = self.req("object/securityzones", params=params)
         return resp
 
     #
