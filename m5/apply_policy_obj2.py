@@ -6,7 +6,7 @@ Purpose: Applies the policy described in the "policy_objects" files.
 Check out the API explorer at "https://<fmc_host>/api/api-explorer"
 """
 
-from cisco_fmc_obj2 import CiscoFMC
+from cisco_fmc import CiscoFMC
 
 
 def main():
@@ -26,12 +26,6 @@ def main():
     cleanup = input("Purge items just added? (y/n): ").lower()
 
     if cleanup == "y":
-
-        # If you decide to let the program hang to manually explore, you'll
-        # need a new token unless you have a separate username. Logging into
-        # the web UI will invalidate the existing token, and generating a new
-        # token here will log you out of the web UI
-        fmc.authenticate("generatetoken")
 
         # Delete custom policy objects recursively (groups and components)
         fmc.purge_group_id(vpn_resp["id"], "NetworkGroup")

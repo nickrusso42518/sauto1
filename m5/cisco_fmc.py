@@ -85,12 +85,6 @@ class CiscoFMC:
         # Create and return new CiscoFMC object
         return CiscoFMC(username=username, password=password, host=host)
 
-    def reauthenticate(self):
-        """
-        Uses the 'refresh_token' to reauthenticate the session to FMC.
-        """
-        self.authenticate("refreshtoken")
-
     def authenticate(self, grant_type):
         """
         Perform authentication, either "generatetoken" or "refreshtoken",
@@ -130,6 +124,12 @@ class CiscoFMC:
         # This is part of the URL for many requests in the future
         domain_id = token_resp.headers["global"]
         self.api_path = f"{self.base_url}/fmc_config/v1/domain/{domain_id}"
+
+    def reauthenticate(self):
+        """
+        Uses the 'refresh_token' to reauthenticate the session to FMC.
+        """
+        self.authenticate("refreshtoken")
 
     def req(self, resource, method="get", **kwargs):
         """
@@ -173,14 +173,14 @@ class CiscoFMC:
     # Policy object management
     #
 
-    def add_object(self, resource, obj_body):
+    def add_object(self, obj_body):
         """
-        Creates a new generic policy object given a resource URL string and
-        complete object body.
+        Creates a new generic policy object given a complete object body.
         """
 
         # Issue a POST request, print a status message, and return response
-        resp = self.req(resource, method="post", json=obj_body)
+        obj_url = URL_MAP[obj_body["type"]]
+        resp = self.req(obj_url, method="post", json=obj_body)
         print(f"Added {resp['type']} named {resp['name']} with ID {resp['id']}")
         return resp
 
@@ -192,8 +192,7 @@ class CiscoFMC:
 
         # Cannot create empty groups, so build objects individually first
         for obj_body in group_dict["objects"]:
-            obj_url = URL_MAP[obj_body["type"]]
-            obj_resp = self.add_object(obj_url, obj_body)
+            obj_resp = self.add_object(obj_body)
 
             # Add a new "id" key with the ID returned and
             # remove "value" key if it exists (it always should)
@@ -201,8 +200,7 @@ class CiscoFMC:
             obj_body.pop("value", None)
 
         # All objects built; update the group's "objects" key
-        group_url = URL_MAP[group_dict["type"]]
-        group_resp = self.add_object(group_url, group_dict)
+        group_resp = self.add_object(group_dict)
 
         # Return the group response which will contain all UUIDs
         return group_resp
