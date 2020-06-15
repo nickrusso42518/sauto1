@@ -394,16 +394,16 @@ class CiscoFMC:
         are collected or created.
         """
 
-        # Clean up both dictionarys by only extracting the name, type, and ID
-        group = self._clean(group)
-        policy = self._clean(policy)
+        # Clean up both dictionaries by only extracting the name, type, and ID
+        cgroup = self._clean(group)
+        cpolicy = self._clean(policy)
 
         # Assemble the body, which specifies the policy and a list of groups
         body = {
-            "name": policy["name"],
+            "name": cpolicy["name"],
             "type": "PolicyAssignment",
-            "policy": policy,
-            "targets": [group],
+            "policy": cpolicy,
+            "targets": [cgroup],
         }
 
         # Issue the HTTP POST request and return the response
@@ -411,8 +411,8 @@ class CiscoFMC:
             "assignment/policyassignments", method="post", json=body
         )
         print(
-            f"Assigned policy {policy['name']} to "
-            f"group {group['name']} with ID {resp['id']}"
+            f"Assigned policy {cpolicy['name']} to "
+            f"group {cgroup['name']} with ID {resp['id']}"
         )
         return resp
 

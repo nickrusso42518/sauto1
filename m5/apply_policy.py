@@ -17,9 +17,6 @@ def main():
     # Create a new FMC object referencing the DevNet sandbox (default)
     fmc = CiscoFMC.build_from_env_vars()
 
-    # Collect the IPS policy first as we'll need it for the VPN rule
-    ips_resp = fmc.get_ips_policies(name="Balanced Security and Connectivity")
-
     # Create VPN network, IPsec port/protocol, and blacklist network groups
     vpn_resp = fmc.add_group_file("objects/group_vpn.json")
     blacklist_resp = fmc.add_group_file("objects/group_blacklist.json")
@@ -35,6 +32,9 @@ def main():
         description="General VPN access and blacklist protection",
     )
     policy_id = globo_policy["id"]
+
+    # Collect the IPS policy first as we'll need it for the VPN rule
+    ips_resp = fmc.get_ips_policies(name="Balanced Security and Connectivity")
 
     # Permit VPN sessions to headends from outside to inside. Also
     # include the IPS policy from the beginning by extracting the
@@ -81,12 +81,6 @@ def main():
     cleanup = input("Purge items just added? (y/n): ").lower()
 
     if cleanup == "y":
-
-        # If you decide to let the program hang to manually explore, you'll
-        # need a new token unless you have a separate username. Logging into
-        # the web UI will invalidate the existing token, and generating a new
-        # token here will log you out of the web UI
-        fmc.authenticate("generatetoken")
 
         # Delete custom access policy; deletes all rules automatically
         fmc.delete_access_policy(policy_id)
