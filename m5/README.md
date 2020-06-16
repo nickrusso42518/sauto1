@@ -16,5 +16,6 @@ if you want to use the `build_from_env_vars()` method:
 Edit, copy, and paste the commands below to speed things up:
 ```
 export FMC_USERNAME=njrusmc
-export FMC_PASSWORD=2NgD4Kwz
+export FMC_PASSWORD=2NgD3Kwz
+export FMC_HOST=<your FMC IP/hostname>
 ```
